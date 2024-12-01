@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="./assets/icons/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="./styles/reset.css">
+    <link rel="stylesheet" href="./styles/colors.css">
+    <link rel="stylesheet" href="./styles/fonts.css">
+    <link rel="stylesheet" href="./styles/types.css">
+    <link rel="stylesheet" href="./styles/main.css">
+    <link rel="stylesheet" href="./styles/pokemon.css">
+    <link rel="stylesheet" href="./styles/templates.css">
+    <title>Pokédex</title>
+</head>
+
+<body onload="includeHtml(),init()">
+
+    <div w3-include-html="./templates/header.html"></div>
+
+    <main id="main" class="main">
+    </main>
+
+    <footer></footer>
+
+    <script src="./scripts/includeHtml.js"></script>
+    <script src="./scripts/db.js"></script>
+    <script src="./scripts/htmlTemplates.js"></script>
+    <script src="./scripts/script.js"></script>
+</body>
+
+</html>

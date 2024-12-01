@@ -1,0 +1,13 @@
+.header {
+	display: flex;
+	justify-content: center;
+	gap: 24px;
+	padding: 16px;
+	height: 56px;
+	background: var(--teal-dark);
+	color: var(--white);
+}
+
+.pokedex-button {
+	cursor: pointer;
+}

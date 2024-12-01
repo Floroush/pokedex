@@ -1,0 +1,10 @@
+.main {
+	display: flex;
+	align-content: flex-start;
+	flex-flow: row wrap;
+	gap: 24px;
+	justify-content: center;
+	min-height: 100dvh;
+	padding: 24px;
+	background: var(--black);
+}

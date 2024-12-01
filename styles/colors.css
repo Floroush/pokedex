@@ -1,0 +1,492 @@
+:root {
+	--bug: rgba(131, 173, 37);
+	--dark: rgba(70, 62, 62);
+	--dragon: rgba(77, 100, 171);
+	--electric: rgba(229, 198, 0);
+	--fairy: rgba(212, 128, 207);
+	--fighting: rgba(168, 76, 61);
+	--fire: rgba(229, 59, 25);
+	--flying: rgba(135, 181, 229);
+	--ghost: rgba(99, 60, 100);
+	--grass: rgba(88, 169, 81);
+	--ground: rgba(149, 104, 51);
+	--ice: rgba(104, 186, 172);
+	--normal: rgba(168, 168, 153);
+	--poison: rgba(134, 74, 184);
+	--psychic: rgba(229, 89, 115);
+	--rock: rgba(168, 153, 91);
+	--steel: rgba(153, 153, 168);
+	--water: rgba(39, 139, 204);
+
+	--bug-light: rgb(227, 240, 181);
+	--dark-light: rgb(157, 140, 140);
+	--dragon-light: rgb(171, 181, 229);
+	--electric-light: rgb(255, 243, 145);
+	--fairy-light: rgb(241, 202, 241);
+	--fighting-light: rgb(227, 174, 154);
+	--fire-light: rgb(255, 158, 123);
+	--flying-light: rgb(204, 217, 255);
+	--ghost-light: rgb(179, 163, 179);
+	--grass-light: rgb(192, 221, 190);
+	--ground-light: rgb(209, 178, 153);
+	--normal-light: rgb(221, 221, 204);
+	--ice-light: rgb(176, 225, 210);
+	--poison-light: rgb(210, 170, 223);
+	--psychic-light: rgb(255, 169, 188);
+	--rock-light: rgb(211, 202, 151);
+	--steel-light: rgb(204, 204, 211);
+	--water-light: rgb(132, 189, 239);
+
+	--bug-shadow: rgba(131, 173, 37);
+	--dark-shadow: rgba(70, 62, 62);
+	--dragon-shadow: rgba(77, 100, 171);
+	--electric-shadow: rgba(229, 198, 0);
+	--fairy-shadow: rgba(212, 128, 207);
+	--fighting-shadow: rgba(168, 76, 61);
+	--fire-shadow: rgba(229, 59, 25);
+	--flying-shadow: rgba(135, 181, 229);
+	--ghost-shadow: rgba(99, 60, 100);
+	--grass-shadow: rgba(88, 169, 81);
+	--ground-shadow: rgba(149, 104, 51);
+	--ice-shadow: rgba(104, 186, 172);
+	--normal-shadow: rgba(168, 168, 153);
+	--poison-shadow: rgba(134, 74, 184);
+	--psychic-shadow: rgba(229, 89, 115);
+	--rock-shadow: rgba(168, 153, 91);
+	--steel-shadow: rgba(153, 153, 168);
+	--water-shadow: rgba(39, 139, 204);
+
+	--bug-light-shadow: rgba(174, 216, 111);
+	--dark-light-shadow: rgba(98, 92, 92);
+	--dragon-light-shadow: rgba(114, 145, 210);
+	--electric-light-shadow: rgba(255, 237, 122);
+	--fairy-light-shadow: rgba(255, 178, 243);
+	--fighting-light-shadow: rgba(204, 115, 92);
+	--fire-light-shadow: rgba(255, 97, 70);
+	--flying-light-shadow: rgba(170, 214, 255);
+	--ghost-light-shadow: rgba(153, 113, 158);
+	--grass-light-shadow: rgba(121, 200, 119);
+	--ground-light-shadow: rgba(187, 155, 89);
+	--ice-light-shadow: rgba(158, 222, 204);
+	--normal-light-shadow: rgba(204, 204, 187);
+	--poison-light-shadow: rgba(179, 129, 220);
+	--psychic-light-shadow: rgba(255, 128, 153);
+	--rock-light-shadow: rgba(204, 179, 128);
+	--steel-light-shadow: rgba(179, 179, 204);
+	--water-light-shadow: rgba(90, 179, 255);
+
+	--black: rgb(0, 0, 0);
+	--blue-light: rgb(135, 206, 250);
+	--green: rgb(80, 199, 120);
+	--grey-light: rgb(239, 237, 233);
+	--red: rgb(212, 4, 37);
+	--teal: rgb(32, 125, 155);
+	--teal-dark: rgb(18, 71, 88);
+	--teal-light: rgb(39, 152, 189);
+	--white: rgb(255, 255, 255);
+	--yellow: rgb(246, 194, 68);
+
+	--background: rgb(252, 252, 252);
+	--border: rgb(219, 217, 215);
+	--hover-blue: rgb(40, 123, 237);
+	--hover-orange: rgb(255, 146, 72);
+	--hover-white: rgb(240, 240, 240);
+	--hover-yellow: rgb(248, 206, 105);
+
+	--youtube: rgb(255, 0, 0);
+	--instagram: radial-gradient(
+		circle at 30% 107%,
+		#fdf497 0%,
+		#fdf497 5%,
+		#fd5949 45%,
+		#d6249f 60%,
+		#285aeb 90%
+	);
+	--facebook: rgb(58, 89, 151);
+}
+
+/* Base colors */
+
+.bug {
+	background: var(--bug);
+}
+
+.dark {
+	background: var(--dark);
+}
+
+.dragon {
+	background: var(--dragon);
+}
+
+.electric {
+	background: var(--electric);
+}
+
+.fairy {
+	background: var(--fairy);
+}
+
+.fighting {
+	background: var(--fighting);
+}
+
+.fire {
+	background: var(--fire);
+}
+
+.flying {
+	background: var(--flying);
+}
+
+.ghost {
+	background: var(--ghost);
+}
+
+.grass {
+	background: var(--grass);
+}
+
+.ground {
+	background: var(--ground);
+}
+
+.normal {
+	background: var(--normal);
+}
+
+.ice {
+	background: var(--ice);
+}
+
+.poison {
+	background: var(--poison);
+}
+
+.psychic {
+	background: var(--psychic);
+}
+
+.rock {
+	background: var(--rock);
+}
+
+.steel {
+	background: var(--steel);
+}
+
+.water {
+	background: var(--water);
+}
+
+/* Light colors */
+
+.bug-light {
+	background: var(--bug-light);
+}
+
+.dark-light {
+	background: var(--dark-light);
+}
+
+.dragon-light {
+	background: var(--dragon-light);
+}
+
+.electric-light {
+	background: var(--electric-light);
+}
+
+.fairy-light {
+	background: var(--fairy-light);
+}
+
+.fighting-light {
+	background: var(--fighting-light);
+}
+
+.fire-light {
+	background: var(--fire-light);
+}
+
+.flying-light {
+	background: var(--flying-light);
+}
+
+.ghost-light {
+	background: var(--ghost-light);
+}
+
+.grass-light {
+	background: var(--grass-light);
+}
+
+.ground-light {
+	background: var(--ground-light);
+}
+
+.normal-light {
+	background: var(--normal-light);
+}
+
+.ice-light {
+	background: var(--ice-light);
+}
+
+.poison-light {
+	background: var(--poison-light);
+}
+
+.psychic-light {
+	background: var(--psychic-light);
+}
+
+.rock-light {
+	background: var(--rock-light);
+}
+
+.steel-light {
+	background: var(--steel-light);
+}
+
+.water-light {
+	background: var(--water-light);
+}
+
+/* Shadows */
+
+.bug-shadow {
+	box-shadow: 0 0 16px var(--bug);
+}
+
+.dark-shadow {
+	box-shadow: 0 0 16px var(--dark);
+}
+
+.dragon-shadow {
+	box-shadow: 0 0 16px var(--dragon);
+}
+
+.electric-shadow {
+	box-shadow: 0 0 16px var(--electric);
+}
+
+.fairy-shadow {
+	box-shadow: 0 0 16px var(--fairy);
+}
+
+.fighting-shadow {
+	box-shadow: 0 0 16px var(--fighting);
+}
+
+.fire-shadow {
+	box-shadow: 0 0 16px var(--fire);
+}
+
+.flying-shadow {
+	box-shadow: 0 0 16px var(--flying);
+}
+
+.ghost-shadow {
+	box-shadow: 0 0 16px var(--ghost);
+}
+
+.grass-shadow {
+	box-shadow: 0 0 16px var(--grass);
+}
+
+.ground-shadow {
+	box-shadow: 0 0 16px var(--ground);
+}
+
+.normal-shadow {
+	box-shadow: 0 0 16px var(--normal);
+}
+
+.ice-shadow {
+	box-shadow: 0 0 16px var(--ice);
+}
+
+.poison-shadow {
+	box-shadow: 0 0 16px var(--poison);
+}
+
+.psychic-shadow {
+	box-shadow: 0 0 16px var(--psychic);
+}
+
+.rock-shadow {
+	box-shadow: 0 0 16px var(--rock);
+}
+
+.steel-shadow {
+	box-shadow: 0 0 16px var(--steel);
+}
+
+.water-shadow {
+	box-shadow: 0 0 16px var(--water);
+}
+
+/* Light Shadows */
+
+.bug-light-shadow {
+	box-shadow: 0 0 16px var(--bug-light);
+}
+
+.dark-light-shadow {
+	box-shadow: 0 0 16px var(--dark-light);
+}
+
+.dragon-light-shadow {
+	box-shadow: 0 0 16px var(--dragon-light);
+}
+
+.electric-light-shadow {
+	box-shadow: 0 0 16px var(--electric-light);
+}
+
+.fairy-light-shadow {
+	box-shadow: 0 0 16px var(--fairy-light);
+}
+
+.fighting-light-shadow {
+	box-shadow: 0 0 16px var(--fighting-light);
+}
+
+.fire-light-shadow {
+	box-shadow: 0 0 16px var(--fire-light);
+}
+
+.flying-light-shadow {
+	box-shadow: 0 0 16px var(--flying-light);
+}
+
+.ghost-light-shadow {
+	box-shadow: 0 0 16px var(--ghost-light);
+}
+
+.grass-light-shadow {
+	box-shadow: 0 0 16px var(--grass-light);
+}
+
+.ground-light-shadow {
+	box-shadow: 0 0 16px var(--ground-light);
+}
+
+.normal-light-shadow {
+	box-shadow: 0 0 16px var(--normal-light);
+}
+
+.ice-light-shadow {
+	box-shadow: 0 0 16px var(--ice-light);
+}
+
+.poison-light-shadow {
+	box-shadow: 0 0 16px var(--poison-light);
+}
+
+.psychic-light-shadow {
+	box-shadow: 0 0 16px var(--psychic-light);
+}
+
+.rock-light-shadow {
+	box-shadow: 0 0 16px var(--rock-light);
+}
+
+.steel-light-shadow {
+	box-shadow: 0 0 16px var(--steel-light);
+}
+
+.water-light-shadow {
+	box-shadow: 0 0 16px var(--water-light);
+}
+
+.bug {
+	background: #92bc2c;
+	box-shadow: 0 0 20px #92bc2c;
+}
+
+.dark {
+	background: #595761;
+	box-shadow: 0 0 20px #595761;
+}
+
+.dragon {
+	background: #0c69c8;
+	box-shadow: 0 0 20px #0c69c8;
+}
+
+.electric {
+	background: #f2d94e;
+	box-shadow: 0 0 20px #f2d94e;
+}
+
+.fire {
+	background: #fba54c;
+	box-shadow: 0 0 20px #fba54c;
+}
+
+.fairy {
+	background: #ee90e6;
+	box-shadow: 0 0 20px #ee90e6;
+}
+
+.fighting {
+	background: #d3425f;
+	box-shadow: 0 0 20px #d3425f;
+}
+
+.flying {
+	background: #a1bbec;
+	box-shadow: 0 0 20px #a1bbec;
+}
+
+.ghost {
+	background: #5f6dbc;
+	box-shadow: 0 0 20px #5f6dbc;
+}
+
+.grass {
+	background: #5fbd58;
+	box-shadow: 0 0 20px #5fbd58;
+}
+
+.ground {
+	background: #da7c4d;
+	box-shadow: 0 0 20px #da7c4d;
+}
+
+.ice {
+	background: #75d0c1;
+	box-shadow: 0 0 20px #75d0c1;
+}
+
+.normal {
+	background: #a0a29f;
+	box-shadow: 0 0 20px #a0a29f;
+}
+
+.poison {
+	background: #b763cf;
+	box-shadow: 0 0 20px #b763cf;
+}
+
+.psychic {
+	background: #fa8581;
+	box-shadow: 0 0 20px #fa8581;
+}
+
+.rock {
+	background: #c9bb8a;
+	box-shadow: 0 0 20px #c9bb8a;
+}
+
+.steel {
+	background: #5695a3;
+	box-shadow: 0 0 20px #5695a3;
+}
+
+.water {
+	background: #539ddf;
+	box-shadow: 0 0 20px #539ddf;
+}

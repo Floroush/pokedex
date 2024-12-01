@@ -1,0 +1,100 @@
+@font-face {
+	font-family: "Ubuntu";
+	src: url("../assets/fonts/Ubuntu/Ubuntu-Regular.ttf") format("truetype");
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: "Ubuntu";
+	src: url("../assets/fonts/Ubuntu/Ubuntu-Bold.ttf") format("truetype");
+	font-weight: bold;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: "Ubuntu";
+	src: url("../assets/fonts/Ubuntu/Ubuntu-BoldItalic.ttf") format("truetype");
+	font-weight: bold;
+	font-style: italic;
+}
+
+@font-face {
+	font-family: "Ubuntu";
+	src: url("../assets/fonts/Ubuntu/Ubuntu-Italic.ttf") format("truetype");
+	font-weight: normal;
+	font-style: italic;
+}
+
+@font-face {
+	font-family: "Ubuntu";
+	src: url("../assets/fonts/Ubuntu/Ubuntu-Light.ttf") format("truetype");
+	font-weight: 300;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: "Ubuntu";
+	src: url("../assets/fonts/Ubuntu/Ubuntu-LightItalic.ttf") format("truetype");
+	font-weight: 300;
+	font-style: italic;
+}
+
+@font-face {
+	font-family: "Ubuntu";
+	src: url("../assets/fonts/Ubuntu/Ubuntu-Medium.ttf") format("truetype");
+	font-weight: 500;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: "Ubuntu";
+	src: url("../assets/fonts/Ubuntu/Ubuntu-MediumItalic.ttf") format("truetype");
+	font-weight: 500;
+	font-style: italic;
+}
+
+* {
+	font-size: 12px;
+	font-family: "Menlo", "Arial", sans-serif;
+}
+
+/* 
+.headline {
+	font-weight: bold;
+}
+
+h3 {
+	font-size: 16px;
+}
+
+h2 {
+	font-size: 18px;
+}
+
+h1 {
+	font-size: 24px;
+}
+
+.price {
+	font-size: 14px;
+	font-weight: bold;
+}
+
+@media (min-width: 470px) {
+	* {
+		font-size: 16px;
+	}
+	h3 {
+		font-size: 18px;
+	}
+	h2 {
+		font-size: 24px;
+	}
+	h1 {
+		font-size: 32px;
+	}
+	.price {
+		font-size: 18px;
+	}
+} */
