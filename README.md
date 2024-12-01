@@ -1,4 +1,4 @@
-# Pokédex
+# Pokédex 🌱🔥💧
 
 ## About
 
