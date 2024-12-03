@@ -2,7 +2,8 @@
 	border-radius: 8px;
 	height: auto;
 	width: 200px;
-	background: var(--teal-dark);
+	background: var(--white);
+	color: var(--black);
 	cursor: pointer;
 }
 
@@ -13,8 +14,8 @@
 	-webkit-border-top-right-radius: 8px;
 	-webkit-border-top-left-radius: 8px;
 	padding: 8px;
-	background: var(--teal-dark);
-	color: var(--white);
+	background: var(--white);
+	color: var(--black);
 }
 
 .pokemon-name {

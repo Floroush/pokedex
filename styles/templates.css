@@ -3,20 +3,20 @@
 	justify-content: center;
 	gap: 24px;
 	padding: 16px;
-	height: 56px;
-	background: var(--teal-dark);
-	color: var(--white);
+	background: var(--white);
+	color: var(--black);
 }
 
 .pokedex-logo {
 	display: flex;
 	align-items: center;
 	gap: 8px;
+	padding: 16px;
 }
 
 .pokedex-logo__pokeball {
 	height: 24px;
-	background: var(--white);
+	background: var(--black);
 	border-radius: 50%;
 }
 
@@ -26,5 +26,13 @@
 }
 
 .pokedex-button {
+	display: flex;
+	align-items: center;
+	flex-flow: column;
+	justify-content: center;
+	height: 100px;
 	cursor: pointer;
+	border: 2px solid var(--white);
+	border-radius: 8px;
+	padding: 16px;
 }
