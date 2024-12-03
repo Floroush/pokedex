@@ -8,6 +8,23 @@
 	color: var(--white);
 }
 
+.pokedex-logo {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.pokedex-logo__pokeball {
+	height: 24px;
+	background: var(--white);
+	border-radius: 50%;
+}
+
+.pokedex-logo__title {
+	font-size: 18px;
+	font-weight: bold;
+}
+
 .pokedex-button {
 	cursor: pointer;
 }
