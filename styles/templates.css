@@ -14,7 +14,7 @@
 	padding: 16px;
 }
 
-.pokedex-logo__pokeball {
+.pokedex-logo__pokeball-icon {
 	height: 24px;
 	background: var(--black);
 	border-radius: 50%;
@@ -29,5 +29,12 @@
 	border: 2px dotted var(--black);
 	border-radius: 8px;
 	padding: 16px;
+	transition: all 0.5s;
+}
+
+.pokedex-button:hover {
+	border: 2px solid var(--black);
+	background: var(--hover-blue);
+	color: var(--white);
 	cursor: pointer;
 }
