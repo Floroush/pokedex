@@ -1,0 +1,22 @@
+.type-icon {
+	display: flex;
+	border-radius: 100%;
+	height: 24px;
+	width: 24px;
+	margin: auto;
+	filter: saturate(200%);
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+	transition: 200ms all;
+}
+
+/* .type-icon:hover {
+	filter: saturate(200%);
+	transform: scale(1.1);
+	cursor: pointer;
+} */
+
+.type-icon img {
+	height: 60%;
+	width: 60%;
+	margin: 20%;
+}

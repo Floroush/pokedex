@@ -1,16 +1,22 @@
 function pokemonContainerHtml(pokemon, pokemonId, i) {
 	return /*html*/ `
-    <div id="${pokemonId}" class="pokemon-container ${pokemon.typing[0]}">
-            <section class="pokemon-container__header ${pokemon.typing[0]}">
+    <div id="${pokemonId}" class="pokemon-container ${
+		pokemon.typing[0] + "-light"
+	}">
+            <section class="pokemon-container__header ${
+							pokemon.typing[0] + "-light"
+						}">
                 <div class="pokemon-number">${pokemon.number}</div>
                 <div class="pokemon-box">
-                    <div class="pokemon-img">
+                    <div class="pokemon-img ${
+											pokemon.typing[0] + "-super-light"
+										} ${pokemon.typing[0] + "-super-light-shadow"}">
                         <img src="${pokemon.sprite}"">
                     </div>
                     <div class="pokemon-name">${pokemon.name}</div>
                     <div class="pokemon-types">
                         <div>
-                            <div id="pokemonType" class="icon ${
+                            <div id="pokemonType" class="type-icon ${
 															pokemon.typing[0]
 														}">
                                 <img src="./assets/icons/${
@@ -19,7 +25,7 @@ function pokemonContainerHtml(pokemon, pokemonId, i) {
                             </div>
                         </div>
                         <div>
-                            <div id="pokemonType" class="icon ${
+                            <div id="pokemonType" class="type-icon ${
 															pokemon.typing[1]
 																? pokemon.typing[1]
 																: "no-second-type"

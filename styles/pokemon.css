@@ -4,7 +4,6 @@
 	width: 200px;
 	color: var(--black);
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
-	cursor: pointer;
 }
 
 .pokemon-container__header {
@@ -28,8 +27,6 @@
 .pokemon-img {
 	border-radius: 100%;
 	display: flex;
-	background: var(--grass-light);
-	box-shadow: 0 0 16px var(--grass-light);
 }
 
 .pokemon-img img:hover {
@@ -56,26 +53,6 @@
 
 .no-second-type {
 	display: none;
-}
-
-.icon {
-	border-radius: 100%;
-	height: 24px;
-	width: 24px;
-	margin: auto;
-	transition: 200ms all;
-}
-
-.icon:hover {
-	filter: saturate(200%);
-	transform: scale(1.1);
-	cursor: pointer;
-}
-
-.icon img {
-	height: 60%;
-	width: 60%;
-	margin: 20%;
 }
 
 .pokemon-info {
