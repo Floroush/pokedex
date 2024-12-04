@@ -29,14 +29,30 @@
 	display: flex;
 }
 
+.pokemon-img img {
+	padding: 8px;
+	transition: all 0.2s;
+}
+
 .pokemon-img img:hover {
+	filter: saturate(200%);
+	transform: scale(1.2);
+	border-radius: 100%;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+	overflow: visible;
+	cursor: pointer;
+}
+
+.pokemon-img img:focus {
 	filter: saturate(200%);
 	transform: scale(1.1);
 	cursor: pointer;
 }
 
-.pokemon-img img {
-	padding: 8px;
+.pokemon-img img:active {
+	filter: saturate(200%);
+	transform: scale(1.1);
+	cursor: pointer;
 }
 
 .pokemon-name {
@@ -71,4 +87,9 @@
 	flex-flow: row;
 	justify-content: space-between;
 	padding: 0 8px;
+}
+
+.types {
+	display: flex;
+	gap: 6px;
 }

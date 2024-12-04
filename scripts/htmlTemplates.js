@@ -40,8 +40,16 @@ function pokemonContainerHtml(pokemon, pokemonId, i) {
             </section>
             <section class="pokemon-info">
                 <div class="pokemon-info__flex-box">
-                    <div>Species:</div>
-                    <div>?</div>
+                    <div>Typing:</div>
+                    <div class="types">
+                        <div>${pokemon.typing[0]}</div>
+                        <div ${
+													pokemon.typing[1]
+														? pokemon.typing[1]
+														: "class=no-second-type"
+												}">${pokemon.typing[1] ? pokemon.typing[1] : ""}
+                        </div>
+                    </div>
                 </div>
                 <div class="pokemon-info__flex-box">
                     <div>Height:</div>
