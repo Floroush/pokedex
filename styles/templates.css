@@ -1,6 +1,6 @@
 .header {
 	display: flex;
-	justify-content: center;
+	justify-content: space-between;
 	gap: 24px;
 	padding: 16px;
 	background: var(--white);
@@ -33,6 +33,13 @@
 }
 
 .pokedex-button:hover {
+	border: 2px solid var(--black);
+	background: var(--hover-blue);
+	color: var(--white);
+	cursor: pointer;
+}
+
+.pokedex-button:focus {
 	border: 2px solid var(--black);
 	background: var(--hover-blue);
 	color: var(--white);
