@@ -2,8 +2,8 @@
 	border-radius: 8px;
 	height: auto;
 	width: 200px;
-	background: var(--grass);
 	color: var(--black);
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
 	cursor: pointer;
 }
 
@@ -14,7 +14,6 @@
 	-webkit-border-top-right-radius: 8px;
 	-webkit-border-top-left-radius: 8px;
 	padding: 8px;
-	background: var(--grass);
 	color: var(--black);
 }
 
@@ -53,6 +52,10 @@
 	display: flex;
 	justify-content: center;
 	gap: 8px;
+}
+
+.no-second-type {
+	display: none;
 }
 
 .icon {
