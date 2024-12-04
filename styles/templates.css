@@ -26,13 +26,8 @@
 }
 
 .pokedex-button {
-	display: flex;
-	align-items: center;
-	flex-flow: column;
-	justify-content: center;
-	height: 100px;
-	cursor: pointer;
-	border: 2px solid var(--white);
+	border: 2px dotted var(--black);
 	border-radius: 8px;
 	padding: 16px;
+	cursor: pointer;
 }
