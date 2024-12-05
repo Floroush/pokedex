@@ -1,4 +1,4 @@
-function pokemonContainerHtml(pokemon, pokemonId, i) {
+function pokemonContainerHTML(pokemon, pokemonId, i) {
 	return /*html*/ `
     <div id="${pokemonId}" class="pokemon-container ${
 		pokemon.typing[0] + "-light"

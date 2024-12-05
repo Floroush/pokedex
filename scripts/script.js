@@ -65,6 +65,6 @@ async function displayPokedex(region) {
 	for (let i = 0; i < regionData.length; i++) {
 		let pokemon = regionData[i];
 		let pokemonId = `${region}${i + 1}`;
-		pokemonContainer.innerHTML += pokemonContainerHtml(pokemon, pokemonId, i);
+		pokemonContainer.innerHTML += pokemonContainerHTML(pokemon, pokemonId, i);
 	}
 }
