@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="./styles/fonts.css">
     <link rel="stylesheet" href="./styles/icons.css">
     <link rel="stylesheet" href="./styles/main.css">
-    <link rel="stylesheet" href="./styles/lightbox.css">
     <link rel="stylesheet" href="./styles/pokemon.css">
     <link rel="stylesheet" href="./styles/templates.css">
     <title>Pokédex</title>
@@ -22,10 +21,14 @@
 
 
 
-    <main id="main" class="main"></main>
+    <main id="main" class="pokedex-container">
+        <div id="pokemonContainer" class="pokedex-container"></div>
+        <button id="loadMoreButton" class="pokedex-button" style="display: none;" onclick="loadMore()">Load More
+            Pokémon</button>
+    </main>
+
 
     <footer></footer>
-    <script src="./scripts/lightbox.js"></script>
     <script src="./scripts/include-html.js"></script>
     <script src="./scripts/db.js"></script>
     <script src="./scripts/html-templates.js"></script>

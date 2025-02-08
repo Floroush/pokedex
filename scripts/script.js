@@ -1,17 +1,45 @@
+// async function init() {
+// 	for (let i = 1; i < 1026; i++) {
+// 		// always Pokédex No.++
+// 		await loadData(i);
+// 	}
+// 	console.log("Kanto Pokémon:", completePokedex.Kanto);
+// 	console.log("Johto Pokémon:", completePokedex.Johto);
+// 	console.log("Hoenn Pokémon:", completePokedex.Hoenn);
+// 	console.log("Sinnoh Pokémon:", completePokedex.Sinnoh);
+// 	console.log("Unova Pokémon:", completePokedex.Unova);
+// 	console.log("Kalos Pokémon:", completePokedex.Kalos);
+// 	console.log("Alola Pokémon:", completePokedex.Alola);
+// 	console.log("Galar Pokémon:", completePokedex.Galar);
+// 	console.log("Paldea Pokémon:", completePokedex.Paldea);
+// }
+
+let currentStartId = 11; // Start-ID für die nächsten Pokémon
+
 async function init() {
-	for (let i = 1; i < 1026; i++) {
-		// always Pokédex No.++
+	for (let i = 1; i <= 10; i++) {
 		await loadData(i);
 	}
 	console.log("Kanto Pokémon:", completePokedex.Kanto);
-	console.log("Johto Pokémon:", completePokedex.Johto);
-	console.log("Hoenn Pokémon:", completePokedex.Hoenn);
-	console.log("Sinnoh Pokémon:", completePokedex.Sinnoh);
-	console.log("Unova Pokémon:", completePokedex.Unova);
-	console.log("Kalos Pokémon:", completePokedex.Kalos);
-	console.log("Alola Pokémon:", completePokedex.Alola);
-	console.log("Galar Pokémon:", completePokedex.Galar);
-	console.log("Paldea Pokémon:", completePokedex.Paldea);
+	displayPokedex("Kanto");
+	toggleLoadMoreButton();
+}
+
+function toggleLoadMoreButton() {
+	let loadMoreButton = document.getElementById("loadMoreButton");
+	if (completePokedex.Kanto.length >= 10) {
+		loadMoreButton.style.display = "block"; // Button anzeigen
+	}
+}
+
+async function loadMore() {
+	let loadMoreButton = document.getElementById("loadMoreButton");
+	for (let i = currentStartId; i < currentStartId + 10; i++) {
+		await loadData(i);
+	}
+	displayPokedex("Kanto"); // Pokédex neu rendern
+	currentStartId += 10; // Nächste Start ID
+	toggleLoadMoreButton(); // Button aktualisieren
 }
 
 async function loadData(path = "") {
@@ -53,18 +81,18 @@ function pushPokedex(region, data, firstType, secondaryType, sprite) {
 }
 
 function render() {
-	let pokemonContainer = document.getElementById("main");
-	pokemonContainer.innerHTML = "";
+	let pokemonContainer = document.getElementById("pokemonContainer");
+	pokemonContainer.innerHTML = ""; // Nur den Pokémon-Container zurücksetzen
 }
 
 async function displayPokedex(region) {
-	let pokemonContainer = document.getElementById("main");
-	pokemonContainer.innerHTML = "";
+	let pokemonContainer = document.getElementById("pokemonContainer");
+	pokemonContainer.innerHTML = ""; // Nur Pokémon-Container leeren
 	let regionData = completePokedex[region];
 	if (!regionData) return; // error handling -> undefined ? functions stops : error
 	for (let i = 0; i < regionData.length; i++) {
 		let pokemon = regionData[i];
 		let pokemonId = `${region}${i + 1}`;
-		pokemonContainer.innerHTML += pokemonContainerHTML(pokemon, pokemonId, i);
+		pokemonContainer.innerHTML += pokemonContainerHTML(pokemon, pokemonId, i); // Nur den Pokémon-Container updaten
 	}
 }

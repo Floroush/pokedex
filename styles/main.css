@@ -1,4 +1,4 @@
-.main {
+.pokedex-container {
 	display: flex;
 	align-content: flex-start;
 	flex-flow: row wrap;
@@ -7,4 +7,36 @@
 	min-height: 100dvh;
 	padding: 24px;
 	background: var(--red-light);
+}
+
+.load-more-button {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: 2px dotted var(--black);
+	border-radius: 8px;
+	padding: 10px;
+	color: var(--white);
+	transition: all 0.5s;
+}
+
+.load-more-button:hover {
+	border: 2px solid var(--black);
+	background: var(--hover-blue);
+	color: var(--white);
+	cursor: pointer;
+}
+
+.load-more-button:focus {
+	border: 2px solid var(--black);
+	background: var(--hover-blue);
+	color: var(--white);
+	cursor: pointer;
+}
+
+.load-more-button:active {
+	border: 2px solid var(--black);
+	background: var(--hover-blue);
+	color: var(--white);
+	cursor: pointer;
 }
