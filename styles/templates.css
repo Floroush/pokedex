@@ -26,6 +26,70 @@
 	font-weight: bold;
 }
 
+.search-container {
+	display: flex;
+}
+
+.search-bar {
+	width: 200px;
+	padding: 8px;
+	border: 2px dotted var(--black);
+	border-radius: 5px;
+	font-size: 16px;
+	outline: none;
+	transition: 0.3s;
+}
+
+.search-bar:focus {
+	border: 2px solid var(--black);
+}
+
+.suggestions-list {
+	position: absolute;
+	top: 40px;
+	left: 0;
+	width: 100%;
+	background: white;
+	border: 1px solid var(--black);
+	border-radius: 5px;
+	list-style: none;
+	padding: 5px;
+	margin: 0;
+	max-height: 150px;
+	overflow-y: auto;
+	box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+	display: none;
+}
+
+.suggestions-list li {
+	padding: 8px;
+	cursor: pointer;
+	transition: 0.3s;
+}
+
+.suggestions-list li:hover {
+	background: var(--black);
+	color: white;
+}
+
+/* Animation für Pokémon-Karten */
+.pokemon-card {
+	opacity: 0;
+	transform: translateY(10px);
+	animation: fadeIn 0.5s ease-out forwards;
+}
+
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+		transform: translateY(10px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
 .button-container {
 	display: flex;
 	flex-wrap: wrap;

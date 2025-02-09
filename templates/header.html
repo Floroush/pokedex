@@ -3,6 +3,13 @@
         <img class="logo-container__pokeball-icon" src="./assets/icons/pokeball.png">
         <div class="logo-container__title">Pokédex</div>
     </a>
+
+    <div class="search-container">
+        <input type="text" id="searchBar" class="search-bar" placeholder="Pokémon suchen..." onkeyup="searchPokemon()">
+        <ul id="suggestions" class="suggestions-list"></ul>
+    </div>
+
+
     <div class="button-container">
         <button class="pokedex-button" onclick="displayPokedex('Kanto')">KANTO</button>
         <button class="pokedex-button" onclick="displayPokedex('Johto')">JOHTO</button>

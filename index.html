@@ -21,14 +21,20 @@
 
 
 
+
     <main id="main" class="pokedex-container">
         <div id="pokemonContainer" class="pokedex-container"></div>
-        <button id="loadMoreButton" class="pokedex-button" style="display: none;" onclick="loadMore()">Load More
+        <button id="loadMoreButton" class="load-more-button" style="display: none;" onclick="loadMore()">Load More
             Pokémon</button>
     </main>
 
+    <div id="loadingScreen" class="loading-screen">
+        <div class="loading-content">
+            <p>Loading Pokémon...</p>
+        </div>
+    </div>
 
-    <footer></footer>
+
     <script src="./scripts/include-html.js"></script>
     <script src="./scripts/db.js"></script>
     <script src="./scripts/html-templates.js"></script>

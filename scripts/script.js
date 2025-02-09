@@ -14,10 +14,10 @@
 // 	console.log("Paldea Pokémon:", completePokedex.Paldea);
 // }
 
-let currentStartId = 11; // Start-ID für die nächsten Pokémon
+let currentStartId = 31; // Start-ID für die nächsten Pokémon
 
 async function init() {
-	for (let i = 1; i <= 10; i++) {
+	for (let i = 1; i <= 30; i++) {
 		await loadData(i);
 	}
 	console.log("Kanto Pokémon:", completePokedex.Kanto);
@@ -27,19 +27,36 @@ async function init() {
 
 function toggleLoadMoreButton() {
 	let loadMoreButton = document.getElementById("loadMoreButton");
-	if (completePokedex.Kanto.length >= 10) {
-		loadMoreButton.style.display = "block"; // Button anzeigen
+	let input = document.getElementById("searchBar").value;
+
+	if (input.length >= 3) {
+		loadMoreButton.style.display = "none";
+		return;
+	}
+
+	if (completePokedex.Kanto.length >= 151) {
+		loadMoreButton.style.display = "none";
+	} else if (completePokedex.Kanto.length >= 30) {
+		loadMoreButton.style.display = "block";
+	} else {
+		loadMoreButton.style.display = "none";
 	}
 }
 
 async function loadMore() {
 	let loadMoreButton = document.getElementById("loadMoreButton");
-	for (let i = currentStartId; i < currentStartId + 10; i++) {
+	let loadingScreen = document.getElementById("loadingScreen");
+	loadingScreen.style.display = "flex";
+	for (let i = currentStartId; i < currentStartId + 30; i++) {
+		if (i > 151) break;
 		await loadData(i);
 	}
-	displayPokedex("Kanto"); // Pokédex neu rendern
-	currentStartId += 10; // Nächste Start ID
-	toggleLoadMoreButton(); // Button aktualisieren
+	displayPokedex("Kanto");
+	currentStartId += 30;
+	toggleLoadMoreButton();
+	setTimeout(() => {
+		loadingScreen.style.display = "none";
+	}, 500);
 }
 
 async function loadData(path = "") {
@@ -95,4 +112,55 @@ async function displayPokedex(region) {
 		let pokemonId = `${region}${i + 1}`;
 		pokemonContainer.innerHTML += pokemonContainerHTML(pokemon, pokemonId, i); // Nur den Pokémon-Container updaten
 	}
+}
+
+function searchPokemon() {
+	let input = document.getElementById("searchBar").value.toLowerCase();
+	let pokemonContainer = document.getElementById("pokemonContainer");
+	let suggestionsList = document.getElementById("suggestions"); // Vorschlagsliste referenzieren
+	pokemonContainer.innerHTML = "";
+
+	// Wenn weniger als 3 Zeichen, Standardanzeige aktivieren
+	if (input.length < 3) {
+		displayPokedex("Kanto");
+		toggleLoadMoreButton();
+		suggestionsList.innerHTML = ""; // Vorschläge leeren
+		suggestionsList.style.display = "none"; // Vorschlagsliste ausblenden
+		return;
+	}
+
+	let filteredPokemon = completePokedex["Kanto"].filter((pokemon) =>
+		pokemon.name.toLowerCase().includes(input)
+	);
+
+	// Vorschläge aufbauen
+	suggestionsList.innerHTML = "";
+	if (filteredPokemon.length === 0) {
+		suggestionsList.style.display = "none"; // Keine Vorschläge -> ausblenden
+	} else {
+		filteredPokemon.forEach((pokemon) => {
+			let li = document.createElement("li");
+			li.textContent = pokemon.name;
+			li.onclick = function () {
+				document.getElementById("searchBar").value = pokemon.name;
+				searchPokemon(); // Direkt nach Auswahl suchen
+				suggestionsList.style.display = "none"; // Vorschlagsliste ausblenden
+			};
+			suggestionsList.appendChild(li);
+		});
+		suggestionsList.style.display = "block"; // Vorschläge einblenden
+	}
+
+	// Pokémon anzeigen
+	if (filteredPokemon.length === 0) {
+		pokemonContainer.innerHTML = `<p>Kein Pokémon gefunden.</p>`;
+	} else {
+		filteredPokemon.forEach((pokemon, i) => {
+			let pokemonId = `Kanto${i + 1}`;
+			pokemonContainer.innerHTML += pokemonContainerHTML(pokemon, pokemonId, i);
+		});
+	}
+
+	// Load More Button verstecken während Suche
+	document.getElementById("loadMoreButton").style.display = "none";
 }
