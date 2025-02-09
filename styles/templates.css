@@ -46,10 +46,10 @@
 
 .suggestions-list {
 	position: absolute;
-	top: 40px;
+	top: 80px;
 	left: 0;
 	width: 100%;
-	background: white;
+	background: var(--white);
 	border: 1px solid var(--black);
 	border-radius: 5px;
 	list-style: none;
@@ -120,7 +120,8 @@
 	cursor: pointer;
 }
 
-.pokedex-button:active {
+.pokedex-button:active,
+.pokedex-button.active {
 	border: 2px solid var(--black);
 	background: var(--hover-blue);
 	color: var(--white);

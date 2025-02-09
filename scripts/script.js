@@ -1,62 +1,19 @@
-// async function init() {
-// 	for (let i = 1; i < 1026; i++) {
-// 		// always Pokédex No.++
-// 		await loadData(i);
-// 	}
-// 	console.log("Kanto Pokémon:", completePokedex.Kanto);
-// 	console.log("Johto Pokémon:", completePokedex.Johto);
-// 	console.log("Hoenn Pokémon:", completePokedex.Hoenn);
-// 	console.log("Sinnoh Pokémon:", completePokedex.Sinnoh);
-// 	console.log("Unova Pokémon:", completePokedex.Unova);
-// 	console.log("Kalos Pokémon:", completePokedex.Kalos);
-// 	console.log("Alola Pokémon:", completePokedex.Alola);
-// 	console.log("Galar Pokémon:", completePokedex.Galar);
-// 	console.log("Paldea Pokémon:", completePokedex.Paldea);
-// }
-
-let currentStartId = 31; // Start-ID für die nächsten Pokémon
+let currentStartId = 31;
 
 async function init() {
 	for (let i = 1; i <= 30; i++) {
 		await loadData(i);
 	}
-	console.log("Kanto Pokémon:", completePokedex.Kanto);
 	displayPokedex("Kanto");
+	let kantoButton = document.getElementById("kantoButton");
+	kantoButton.classList.add("active");
+	let buttons = document.querySelectorAll(".pokedex-button");
+	buttons.forEach((button) => {
+		if (button !== kantoButton) {
+			button.classList.remove("active");
+		}
+	});
 	toggleLoadMoreButton();
-}
-
-function toggleLoadMoreButton() {
-	let loadMoreButton = document.getElementById("loadMoreButton");
-	let input = document.getElementById("searchBar").value;
-
-	if (input.length >= 3) {
-		loadMoreButton.style.display = "none";
-		return;
-	}
-
-	if (completePokedex.Kanto.length >= 151) {
-		loadMoreButton.style.display = "none";
-	} else if (completePokedex.Kanto.length >= 30) {
-		loadMoreButton.style.display = "block";
-	} else {
-		loadMoreButton.style.display = "none";
-	}
-}
-
-async function loadMore() {
-	let loadMoreButton = document.getElementById("loadMoreButton");
-	let loadingScreen = document.getElementById("loadingScreen");
-	loadingScreen.style.display = "flex";
-	for (let i = currentStartId; i < currentStartId + 30; i++) {
-		if (i > 151) break;
-		await loadData(i);
-	}
-	displayPokedex("Kanto");
-	currentStartId += 30;
-	toggleLoadMoreButton();
-	setTimeout(() => {
-		loadingScreen.style.display = "none";
-	}, 500);
 }
 
 async function loadData(path = "") {
@@ -66,7 +23,7 @@ async function loadData(path = "") {
 	let firstType = data.types[0].type.name;
 	let secondaryType = data.types[1] ? data.types[1].type.name : null;
 	let sprite = data.sprites.other["home"].front_default;
-	const regions = new Map([
+	let regions = new Map([
 		["Kanto", [1, 151]],
 		["Johto", [152, 251]],
 		["Hoenn", [252, 386]],
@@ -97,61 +54,102 @@ function pushPokedex(region, data, firstType, secondaryType, sprite) {
 	});
 }
 
-function render() {
-	let pokemonContainer = document.getElementById("pokemonContainer");
-	pokemonContainer.innerHTML = ""; // Nur den Pokémon-Container zurücksetzen
-}
-
 async function displayPokedex(region) {
 	let pokemonContainer = document.getElementById("pokemonContainer");
-	pokemonContainer.innerHTML = ""; // Nur Pokémon-Container leeren
+	pokemonContainer.innerHTML = "";
+	let buttonId = region.toLowerCase() + "Button";
+	document.getElementById(buttonId).classList.add("active");
+	let allRegionButtons = document.querySelectorAll(".pokedex-button");
+	allRegionButtons.forEach((button) => {
+		if (button.id !== buttonId) {
+			button.classList.remove("active");
+		}
+	});
 	let regionData = completePokedex[region];
-	if (!regionData) return; // error handling -> undefined ? functions stops : error
+	if (!regionData) return;
 	for (let i = 0; i < regionData.length; i++) {
 		let pokemon = regionData[i];
 		let pokemonId = `${region}${i + 1}`;
-		pokemonContainer.innerHTML += pokemonContainerHTML(pokemon, pokemonId, i); // Nur den Pokémon-Container updaten
+		pokemonContainer.innerHTML += pokemonContainerHTML(pokemon, pokemonId, i);
 	}
 }
 
+function toggleLoadMoreButton() {
+	let loadMoreButton = document.getElementById("loadMoreButton");
+	let input = document.getElementById("searchBar").value;
+	if (input.length >= 3) {
+		loadMoreButton.style.display = "none";
+		return;
+	}
+	if (completePokedex.Kanto.length >= 151) {
+		loadMoreButton.style.display = "none";
+	} else if (completePokedex.Kanto.length >= 30) {
+		loadMoreButton.style.display = "block";
+	} else {
+		loadMoreButton.style.display = "none";
+	}
+}
+
+async function loadMore() {
+	let loadMoreButton = document.getElementById("loadMoreButton");
+	let loadingScreen = document.getElementById("loadingScreen");
+	loadingScreen.style.display = "flex";
+	for (let i = currentStartId; i < currentStartId + 30; i++) {
+		if (i > 151) break;
+		await loadData(i);
+	}
+	displayPokedex("Kanto");
+	currentStartId += 30;
+	toggleLoadMoreButton();
+	setTimeout(() => {
+		loadingScreen.style.display = "none";
+	}, 500);
+}
+
+// Hauptfunktion zum Suchen von Pokémon
 function searchPokemon() {
 	let input = document.getElementById("searchBar").value.toLowerCase();
 	let pokemonContainer = document.getElementById("pokemonContainer");
-	let suggestionsList = document.getElementById("suggestions"); // Vorschlagsliste referenzieren
-	pokemonContainer.innerHTML = "";
-
-	// Wenn weniger als 3 Zeichen, Standardanzeige aktivieren
+	let suggestionsList = document.getElementById("suggestions");
 	if (input.length < 3) {
 		displayPokedex("Kanto");
 		toggleLoadMoreButton();
-		suggestionsList.innerHTML = ""; // Vorschläge leeren
-		suggestionsList.style.display = "none"; // Vorschlagsliste ausblenden
+		clearSuggestions(suggestionsList);
 		return;
 	}
+	let filteredPokemon = filterPokemon(input);
+	displaySuggestions(filteredPokemon, suggestionsList);
+	displayFilteredPokemon(filteredPokemon, pokemonContainer);
+	document.getElementById("loadMoreButton").style.display = "none";
+}
 
-	let filteredPokemon = completePokedex["Kanto"].filter((pokemon) =>
+function filterPokemon(input) {
+	return completePokedex["Kanto"].filter((pokemon) =>
 		pokemon.name.toLowerCase().includes(input)
 	);
+}
 
-	// Vorschläge aufbauen
+function displaySuggestions(filteredPokemon, suggestionsList) {
 	suggestionsList.innerHTML = "";
 	if (filteredPokemon.length === 0) {
-		suggestionsList.style.display = "none"; // Keine Vorschläge -> ausblenden
+		suggestionsList.style.display = "none";
 	} else {
 		filteredPokemon.forEach((pokemon) => {
 			let li = document.createElement("li");
 			li.textContent = pokemon.name;
 			li.onclick = function () {
 				document.getElementById("searchBar").value = pokemon.name;
-				searchPokemon(); // Direkt nach Auswahl suchen
-				suggestionsList.style.display = "none"; // Vorschlagsliste ausblenden
+				searchPokemon();
+				suggestionsList.style.display = "none";
 			};
 			suggestionsList.appendChild(li);
 		});
-		suggestionsList.style.display = "block"; // Vorschläge einblenden
+		suggestionsList.style.display = "block";
 	}
+}
 
-	// Pokémon anzeigen
+function displayFilteredPokemon(filteredPokemon, pokemonContainer) {
+	pokemonContainer.innerHTML = ""; // Reset container
 	if (filteredPokemon.length === 0) {
 		pokemonContainer.innerHTML = `<p>Kein Pokémon gefunden.</p>`;
 	} else {
@@ -160,7 +158,9 @@ function searchPokemon() {
 			pokemonContainer.innerHTML += pokemonContainerHTML(pokemon, pokemonId, i);
 		});
 	}
+}
 
-	// Load More Button verstecken während Suche
-	document.getElementById("loadMoreButton").style.display = "none";
+function clearSuggestions(suggestionsList) {
+	suggestionsList.innerHTML = "";
+	suggestionsList.style.display = "none";
 }
