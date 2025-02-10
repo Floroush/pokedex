@@ -1,6 +1,8 @@
 let currentStartId = 31;
 
 async function init() {
+	let loadingScreen = document.getElementById("loadingScreen");
+	loadingScreen.style.display = "flex";
 	for (let i = 1; i <= 30; i++) {
 		await loadData(i);
 	}
@@ -14,11 +16,14 @@ async function init() {
 		}
 	});
 	toggleLoadMoreButton("Kanto");
+	setTimeout(() => {
+		loadingScreen.style.display = "none";
+	}, 500);
 }
 
 async function initPokedex(region) {
-	console.log(`initPokedex: Lade Pokémon für ${region}`);
-
+	let loadingScreen = document.getElementById("loadingScreen");
+	loadingScreen.style.display = "flex";
 	let regionData = {
 		"Kanto": [1, 151],
 		"Johto": [152, 251],
@@ -30,34 +35,28 @@ async function initPokedex(region) {
 		"Galar": [810, 905],
 		"Paldea": [906, 1025]
 	};
-
 	if (!regionData[region]) {
 		console.error(`Region "${region}" nicht gefunden.`);
 		return;
 	}
-
 	let [startId, endId] = regionData[region];
-
-	// Sicherstellen, dass der Pokedex leer ist, bevor neue Pokémon geladen werden
 	completePokedex[region] = [];
-
 	for (let i = startId; i < startId + 30 && i <= endId; i++) {
 		await loadData(i);
 	}
-
 	displayPokedex(region);
-
 	let regionButton = document.getElementById(region.toLowerCase() + "Button");
 	regionButton.classList.add("active");
-
 	let buttons = document.querySelectorAll(".pokedex-button");
 	buttons.forEach((button) => {
 		if (button !== regionButton) {
 			button.classList.remove("active");
 		}
 	});
-
 	toggleLoadMoreButton(region);
+	setTimeout(() => {
+		loadingScreen.style.display = "none";
+	}, 500);
 }
 
 async function loadData(path = "") {
@@ -109,17 +108,14 @@ async function displayPokedex(region) {
 			button.classList.remove("active");
 		}
 	});
-
 	let regionData = completePokedex[region];
 	if (!regionData) return;
-
 	for (let i = 0; i < regionData.length; i++) {
 		let pokemon = regionData[i];
 		let pokemonId = `${region}${i + 1}`;
 		pokemonContainer.innerHTML += pokemonContainerHTML(pokemon, pokemonId, i);
 	}
-
-	toggleLoadMoreButton(region); // Region übergeben
+	toggleLoadMoreButton(region);
 }
 
 function toggleLoadMoreButton(region) {
@@ -127,28 +123,20 @@ function toggleLoadMoreButton(region) {
 		console.warn("toggleLoadMoreButton: Ungültige Region:", region);
 		return;
 	}
-
 	let loadMoreButtonContainer = document.getElementById(
 		"loadMoreButtonContainer"
 	);
-
-	// Lösche den alten Button, falls er existiert
 	let existingButton = document.getElementById("loadMoreButton");
 	if (existingButton) {
 		existingButton.remove();
 	}
-
-	// Neuen Button mit der richtigen Region hinzufügen
 	loadMoreButtonContainer.innerHTML = loadMoreButtonHTML(region);
-
 	let loadMoreButton = document.getElementById("loadMoreButton");
 	let input = document.getElementById("searchBar").value;
-
 	if (input.length >= 3) {
 		loadMoreButton.style.display = "none";
 		return;
 	}
-
 	if (completePokedex[region].length >= 151) {
 		loadMoreButton.style.display = "none";
 	} else if (completePokedex[region].length >= 30) {
@@ -156,8 +144,6 @@ function toggleLoadMoreButton(region) {
 	} else {
 		loadMoreButton.style.display = "none";
 	}
-
-	// Stelle sicher, dass der Button auf die richtige Region verweist
 	loadMoreButton.setAttribute("onclick", `loadMore('${region}')`);
 }
 
@@ -165,7 +151,6 @@ async function loadMore(region) {
 	let loadMoreButton = document.getElementById("loadMoreButton");
 	let loadingScreen = document.getElementById("loadingScreen");
 	loadingScreen.style.display = "flex";
-
 	let regionData = {
 		"Kanto": [1, 151],
 		"Johto": [152, 251],
@@ -177,27 +162,19 @@ async function loadMore(region) {
 		"Galar": [810, 905],
 		"Paldea": [906, 1025]
 	};
-
 	if (!regionData[region]) {
 		console.error(`Region "${region}" nicht gefunden.`);
 		return;
 	}
-
 	let [startId, endId] = regionData[region];
-
-	// Start ID berechnen basierend auf bereits geladenen Pokémon
 	let alreadyLoaded = completePokedex[region].length;
 	let nextStartId = startId + alreadyLoaded;
-
 	console.log(`Loading more Pokémon for ${region}: Start at ID ${nextStartId}`);
-
 	for (let i = nextStartId; i < nextStartId + 30 && i <= endId; i++) {
 		await loadData(i);
 	}
-
 	displayPokedex(region);
 	toggleLoadMoreButton(region);
-
 	setTimeout(() => {
 		loadingScreen.style.display = "none";
 	}, 500);
