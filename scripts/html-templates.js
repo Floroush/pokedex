@@ -66,3 +66,7 @@ function pokemonContainerHTML(pokemon, pokemonId, i) {
             </section>
         </div>`;
 }
+
+function loadMoreButtonHTML(region) {
+	return /*html*/ `<button id="loadMoreButton" class="load-more-button" style="display: none;" onclick="loadMore('${region}')">Load More Pokémon</button>`;
+}

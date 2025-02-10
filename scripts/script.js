@@ -13,7 +13,51 @@ async function init() {
 			button.classList.remove("active");
 		}
 	});
-	toggleLoadMoreButton();
+	toggleLoadMoreButton("Kanto");
+}
+
+async function initPokedex(region) {
+	console.log(`initPokedex: Lade Pokémon für ${region}`);
+
+	let regionData = {
+		"Kanto": [1, 151],
+		"Johto": [152, 251],
+		"Hoenn": [252, 386],
+		"Sinnoh": [387, 493],
+		"Unova": [494, 649],
+		"Kalos": [650, 721],
+		"Alola": [722, 809],
+		"Galar": [810, 905],
+		"Paldea": [906, 1025]
+	};
+
+	if (!regionData[region]) {
+		console.error(`Region "${region}" nicht gefunden.`);
+		return;
+	}
+
+	let [startId, endId] = regionData[region];
+
+	// Sicherstellen, dass der Pokedex leer ist, bevor neue Pokémon geladen werden
+	completePokedex[region] = [];
+
+	for (let i = startId; i < startId + 30 && i <= endId; i++) {
+		await loadData(i);
+	}
+
+	displayPokedex(region);
+
+	let regionButton = document.getElementById(region.toLowerCase() + "Button");
+	regionButton.classList.add("active");
+
+	let buttons = document.querySelectorAll(".pokedex-button");
+	buttons.forEach((button) => {
+		if (button !== regionButton) {
+			button.classList.remove("active");
+		}
+	});
+
+	toggleLoadMoreButton(region);
 }
 
 async function loadData(path = "") {
@@ -65,48 +109,100 @@ async function displayPokedex(region) {
 			button.classList.remove("active");
 		}
 	});
+
 	let regionData = completePokedex[region];
 	if (!regionData) return;
+
 	for (let i = 0; i < regionData.length; i++) {
 		let pokemon = regionData[i];
 		let pokemonId = `${region}${i + 1}`;
 		pokemonContainer.innerHTML += pokemonContainerHTML(pokemon, pokemonId, i);
 	}
+
+	toggleLoadMoreButton(region); // Region übergeben
 }
 
-function toggleLoadMoreButton() {
+function toggleLoadMoreButton(region) {
+	if (!region || !completePokedex[region]) {
+		console.warn("toggleLoadMoreButton: Ungültige Region:", region);
+		return;
+	}
+
+	let loadMoreButtonContainer = document.getElementById(
+		"loadMoreButtonContainer"
+	);
+
+	// Lösche den alten Button, falls er existiert
+	let existingButton = document.getElementById("loadMoreButton");
+	if (existingButton) {
+		existingButton.remove();
+	}
+
+	// Neuen Button mit der richtigen Region hinzufügen
+	loadMoreButtonContainer.innerHTML = loadMoreButtonHTML(region);
+
 	let loadMoreButton = document.getElementById("loadMoreButton");
 	let input = document.getElementById("searchBar").value;
+
 	if (input.length >= 3) {
 		loadMoreButton.style.display = "none";
 		return;
 	}
-	if (completePokedex.Kanto.length >= 151) {
+
+	if (completePokedex[region].length >= 151) {
 		loadMoreButton.style.display = "none";
-	} else if (completePokedex.Kanto.length >= 30) {
+	} else if (completePokedex[region].length >= 30) {
 		loadMoreButton.style.display = "block";
 	} else {
 		loadMoreButton.style.display = "none";
 	}
+
+	// Stelle sicher, dass der Button auf die richtige Region verweist
+	loadMoreButton.setAttribute("onclick", `loadMore('${region}')`);
 }
 
-async function loadMore() {
+async function loadMore(region) {
 	let loadMoreButton = document.getElementById("loadMoreButton");
 	let loadingScreen = document.getElementById("loadingScreen");
 	loadingScreen.style.display = "flex";
-	for (let i = currentStartId; i < currentStartId + 30; i++) {
-		if (i > 151) break;
+
+	let regionData = {
+		"Kanto": [1, 151],
+		"Johto": [152, 251],
+		"Hoenn": [252, 386],
+		"Sinnoh": [387, 493],
+		"Unova": [494, 649],
+		"Kalos": [650, 721],
+		"Alola": [722, 809],
+		"Galar": [810, 905],
+		"Paldea": [906, 1025]
+	};
+
+	if (!regionData[region]) {
+		console.error(`Region "${region}" nicht gefunden.`);
+		return;
+	}
+
+	let [startId, endId] = regionData[region];
+
+	// Start ID berechnen basierend auf bereits geladenen Pokémon
+	let alreadyLoaded = completePokedex[region].length;
+	let nextStartId = startId + alreadyLoaded;
+
+	console.log(`Loading more Pokémon for ${region}: Start at ID ${nextStartId}`);
+
+	for (let i = nextStartId; i < nextStartId + 30 && i <= endId; i++) {
 		await loadData(i);
 	}
-	displayPokedex("Kanto");
-	currentStartId += 30;
-	toggleLoadMoreButton();
+
+	displayPokedex(region);
+	toggleLoadMoreButton(region);
+
 	setTimeout(() => {
 		loadingScreen.style.display = "none";
 	}, 500);
 }
 
-// Hauptfunktion zum Suchen von Pokémon
 function searchPokemon() {
 	let input = document.getElementById("searchBar").value.toLowerCase();
 	let pokemonContainer = document.getElementById("pokemonContainer");
