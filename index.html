@@ -15,29 +15,24 @@
     <title>Pokédex</title>
 </head>
 
-<body onload="includeHTML(),init()">
+<body onload="includeHTML(),initPage()">
 
     <div w3-include-html="./templates/header.html"></div>
-
-
-
-
     <main id="main" class="pokedex-container">
         <div id="pokemonContainer" class="pokedex-container"></div>
         <div id="loadMoreButtonContainer"></div>
     </main>
-
     <div id="loadingScreen" class="loading-screen">
         <div class="loading-content">
             <p>Loading Pokémon...</p>
         </div>
     </div>
 
-
     <script src="./scripts/include-html.js"></script>
     <script src="./scripts/db.js"></script>
     <script src="./scripts/html-templates.js"></script>
     <script src="./scripts/script.js"></script>
+
 </body>
 
 </html>
