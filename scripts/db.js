@@ -1,3 +1,5 @@
+const BASE_URL = `https://pokeapi.co/api/v2/pokemon/`;
+
 let completePokedex = {
 	Kanto: [],
 	Johto: [],
@@ -9,7 +11,3 @@ let completePokedex = {
 	Galar: [],
 	Paldea: []
 };
-
-let currentPokedex = completePokedex;
-
-const BASE_URL = `https://pokeapi.co/api/v2/pokemon/`;

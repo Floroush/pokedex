@@ -1,22 +1,17 @@
-let currentStartId = 31;
-
 async function initPage() {
-	let loadingScreen = document.getElementById("loadingScreen");
+	const loadingScreen = document.getElementById("loadingScreen");
 	showLoadingScreen(loadingScreen);
-	for (let i = 1; i <= 30; i++) {
-		await loadData(i);
-	}
+	await loadPokemonData();
 	displayPokedex("Kanto");
-	let kantoButton = document.getElementById("kantoButton");
-	kantoButton.classList.add("active");
-	let buttons = document.querySelectorAll(".pokedex-button");
-	buttons.forEach((button) => {
-		if (button !== kantoButton) {
-			button.classList.remove("active");
-		}
-	});
+	toggleRegionButton("kantoButton");
 	toggleLoadMoreButton("Kanto");
 	hideLoadingScreen(loadingScreen);
+}
+
+async function loadPokemonData() {
+	for (let i = 1; i <= 30; i++) {
+		await loadApiData(i);
+	}
 }
 
 function showLoadingScreen(loadingScreen) {
@@ -29,61 +24,100 @@ function hideLoadingScreen(loadingScreen) {
 	}, 500);
 }
 
-async function initPokedex(region) {
-	let loadingScreen = document.getElementById("loadingScreen");
-	loadingScreen.style.display = "flex";
-	if (completePokedex[region] && completePokedex[region].length > 0) {
-		displayPokedex(region);
-		toggleLoadMoreButton(region);
-		setTimeout(() => {
-			loadingScreen.style.display = "none";
-		}, 500);
-		return;
-	}
-	let regionData = {
-		"Kanto": [1, 151],
-		"Johto": [152, 251],
-		"Hoenn": [252, 386],
-		"Sinnoh": [387, 493],
-		"Unova": [494, 649],
-		"Kalos": [650, 721],
-		"Alola": [722, 809],
-		"Galar": [810, 905],
-		"Paldea": [906, 1025]
-	};
-	if (!regionData[region]) {
-		console.error(`Region "${region}" nicht gefunden.`);
-		return;
-	}
-	let [startId, endId] = regionData[region];
-	completePokedex[region] = []; // Initialisieren, falls noch nicht vorhanden
-	for (let i = startId; i < startId + 30 && i <= endId; i++) {
-		await loadData(i);
-	}
-	displayPokedex(region);
-	let regionButton = document.getElementById(region.toLowerCase() + "Button");
+function toggleRegionButton(activeButtonId) {
+	const regionButton = document.getElementById(activeButtonId);
 	regionButton.classList.add("active");
-	let buttons = document.querySelectorAll(".pokedex-button");
+	const buttons = document.querySelectorAll(".pokedex-button");
 	buttons.forEach((button) => {
 		if (button !== regionButton) {
 			button.classList.remove("active");
 		}
 	});
-
-	toggleLoadMoreButton(region);
-	setTimeout(() => {
-		loadingScreen.style.display = "none";
-	}, 500);
 }
 
-async function loadData(path = "") {
+async function initPokedex(region) {
+	let loadingScreen = document.getElementById("loadingScreen");
+	showLoadingScreen(loadingScreen);
+	loadRegionDataFromLocalStorage(region);
+	if (isRegionDataLoaded(region)) {
+		displayPokedex(region);
+		toggleLoadMoreButton(region);
+		hideLoadingScreen(loadingScreen);
+		return;
+	}
+	let regionData = loadRegionData(region);
+	if (!regionData) {
+		hideLoadingScreen(loadingScreen);
+		return;
+	}
+	let { startId, endId } = regionData;
+	await loadPokemonDataForRegion(region, startId, endId);
+	displayPokedex(region);
+	toggleRegionButton(region.toLowerCase() + "Button");
+	toggleLoadMoreButton(region);
+	hideLoadingScreen(loadingScreen);
+	saveRegionDataToLocalStorage(region);
+}
+
+function isRegionDataLoaded(region) {
+	return completePokedex[region] && completePokedex[region].length > 0;
+}
+
+function loadRegionData(region) {
+	let regionData = getRegionData(region);
+	if (!regionData) return null;
+	let [startId, endId] = regionData;
+	return { startId, endId };
+}
+
+async function loadPokemonDataForRegion(region, startId, endId) {
+	completePokedex[region] = [];
+	for (let i = startId; i < startId + 30 && i <= endId; i++) {
+		await loadApiData(i);
+	}
+	console.log(`Loaded ${completePokedex[region].length} Pokémon for ${region}`);
+}
+
+async function loadApiData(path = "") {
 	console.log(`Loading data for Pokémon ID: ${path}`);
+
 	let response = await fetch(BASE_URL + path);
 	let data = await response.json();
+
+	let { firstType, secondaryType } = extractTypes(data);
+	let sprite = extractSprite(data);
+	let firstAbility = extractAbility(data);
+	let region = getRegionForPokemon(data.id);
+
+	if (region) {
+		console.log(`Pushing ${region} Pokémon`);
+		await pushPokemon(
+			region,
+			data,
+			firstType,
+			secondaryType,
+			sprite,
+			firstAbility
+		);
+	}
+}
+
+function extractTypes(data) {
 	let firstType = data.types[0].type.name;
 	let secondaryType = data.types[1] ? data.types[1].type.name : null;
-	let sprite = data.sprites.other["home"].front_default;
-	let regions = new Map([
+	return { firstType, secondaryType };
+}
+
+function extractSprite(data) {
+	return data.sprites.other["home"].front_default;
+}
+
+function extractAbility(data) {
+	return data.abilities[0].ability.name;
+}
+
+function getRegionForPokemon(id) {
+	const regions = new Map([
 		["Kanto", [1, 151]],
 		["Johto", [152, 251]],
 		["Hoenn", [252, 386]],
@@ -95,51 +129,73 @@ async function loadData(path = "") {
 		["Paldea", [906, 1025]]
 	]);
 	for (let [region, [start, end]] of regions) {
-		if (data.id >= start && data.id <= end) {
-			console.log(`${region} push`);
-			await pushPokedex(region, data, firstType, secondaryType, sprite);
-			break;
-		}
+		if (id >= start && id <= end) return region;
 	}
+	return null;
 }
 
-function pushPokedex(region, data, firstType, secondaryType, sprite) {
-	completePokedex[region].push({
-		number: String(data.id).padStart(4, "0"),
-		name: data.name.toUpperCase(),
-		typing: [firstType, secondaryType],
-		height: (data.height / 10).toFixed(2).replace(".", ",") + " m",
-		weight: (data.weight / 10).toFixed(1).replace(".", ",") + " kg",
-		sprite: sprite
+function pushPokemon(
+	region,
+	data,
+	firstType,
+	secondaryType,
+	sprite,
+	firstAbility
+) {
+	return new Promise((resolve) => {
+		completePokedex[region].push({
+			number: String(data.id).padStart(4, "0"),
+			name: data.name.toUpperCase(),
+			typing: [firstType, secondaryType],
+			height: (data.height / 10).toFixed(2).replace(".", ",") + " m",
+			weight: (data.weight / 10).toFixed(1).replace(".", ",") + " kg",
+			sprite: sprite,
+			ability: firstAbility
+		});
+		resolve();
 	});
 }
 
-async function displayPokedex(region) {
-	let pokemonContainer = document.getElementById("pokemonContainer");
-	pokemonContainer.innerHTML = "";
-	let buttonId = region.toLowerCase() + "Button";
-	document.getElementById(buttonId).classList.add("active");
-	let allRegionButtons = document.querySelectorAll(".pokedex-button");
-	allRegionButtons.forEach((button) => {
-		if (button.id !== buttonId) {
-			button.classList.remove("active");
-		}
-	});
-	let regionData = completePokedex[region];
-	if (!regionData) return;
-	for (let i = 0; i < regionData.length; i++) {
-		let pokemon = regionData[i];
-		let pokemonId = `${region}${i + 1}`;
-		pokemonContainer.innerHTML += pokemonContainerHTML(pokemon, pokemonId, i);
+function saveRegionDataToLocalStorage(region) {
+	const regionData = completePokedex[region];
+	if (regionData.length > 0) {
+		localStorage.setItem(region, JSON.stringify(regionData));
 	}
+}
+
+function loadRegionDataFromLocalStorage(region) {
+	const storedData = localStorage.getItem(region);
+	if (storedData) {
+		completePokedex[region] = JSON.parse(storedData);
+	}
+}
+
+function displayPokedex(region) {
+	toggleRegionButton(region.toLowerCase() + "Button");
+	loadRegionDataToContainer(region);
 	toggleLoadMoreButton(region);
 }
 
+function loadRegionDataToContainer(region) {
+	let regionData = completePokedex[region];
+	if (!regionData) return;
+	let pokemonContainer = clearPokemonContainer();
+	regionData.forEach((pokemon, i) => {
+		let pokemonId = `${region}${i + 1}`;
+		addPokemonToContainer(pokemonContainer, pokemon, pokemonId, i);
+	});
+}
+function clearPokemonContainer() {
+	let pokemonContainer = document.getElementById("pokemonContainer");
+	pokemonContainer.innerHTML = "";
+	return pokemonContainer;
+}
+
+function addPokemonToContainer(pokemonContainer, pokemon, pokemonId, index) {
+	pokemonContainer.innerHTML += pokemonContainerHTML(pokemon, pokemonId, index);
+}
+
 function toggleLoadMoreButton(region) {
-	if (!region || !completePokedex[region]) {
-		console.warn("toggleLoadMoreButton: Invalid Region:", region);
-		return;
-	}
 	removeLoadMoreButton();
 	createLoadMoreButton(region);
 	updateLoadMoreButton(region);
@@ -157,14 +213,13 @@ function createLoadMoreButton(region) {
 	loadMoreButtonContainer.innerHTML = loadMoreButtonHTML(region);
 	document
 		.getElementById("loadMoreButton")
-		.setAttribute("onclick", `loadMore('${region}')`);
+		.setAttribute("onclick", `loadMorePokemon('${region}')`);
 }
 
 function updateLoadMoreButton(region) {
 	let loadMoreButton = document.getElementById("loadMoreButton");
 	let input = document.getElementById("searchBar").value;
 	let pokemonCount = completePokedex[region].length;
-
 	if (input.length >= 3 || pokemonCount >= 151) {
 		loadMoreButton.style.display = "none";
 	} else {
@@ -172,14 +227,15 @@ function updateLoadMoreButton(region) {
 	}
 }
 
-async function loadMore(region) {
+async function loadMorePokemon(region) {
 	let loadingScreen = document.getElementById("loadingScreen");
 	showLoadingScreen(loadingScreen);
 	let regionData = getRegionData(region);
 	if (!regionData) return;
-	let nextStartId = getNextStartId(region, regionData);
+	let nextStartId = getStartId(region, regionData);
 	console.log(`Loading more Pokémon for ${region}: Start at ID ${nextStartId}`);
-	await loadMorePokemon(region, nextStartId, regionData[1]);
+	await loadMoreData(region, nextStartId, regionData[1]);
+	saveRegionDataToLocalStorage(region);
 	displayPokedex(region);
 	toggleLoadMoreButton(region);
 	hideLoadingScreen(loadingScreen);
@@ -197,21 +253,17 @@ function getRegionData(region) {
 		"Galar": [810, 905],
 		"Paldea": [906, 1025]
 	};
-	if (!regionData[region]) {
-		console.error(`Region "${region}" not found.`);
-		return null;
-	}
 	return regionData[region];
 }
 
-function getNextStartId(region, regionData) {
+function getStartId(region, regionData) {
 	let alreadyLoaded = completePokedex[region].length;
 	return regionData[0] + alreadyLoaded;
 }
 
-async function loadMorePokemon(region, startId, endId) {
+async function loadMoreData(region, startId, endId) {
 	for (let i = startId; i < startId + 30 && i <= endId; i++) {
-		await loadData(i);
+		await loadApiData(i);
 	}
 }
 

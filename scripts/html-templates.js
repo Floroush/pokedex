@@ -1,70 +1,44 @@
 function pokemonContainerHTML(pokemon, pokemonId, i) {
+	const primaryType = pokemon.typing[0];
+	const secondaryType = pokemon.typing[1] || "no-second-type";
+	const sprite = pokemon.sprite;
+	const typeIcon = (type) =>
+		`<img src="./assets/icons/${type}.svg" alt="${type} type">`;
+
 	return /*html*/ `
-    <div id="${pokemonId}" class="pokemon-container ${
-		pokemon.typing[0] + "-light"
-	}">
-            <section class="pokemon-container__header ${
-							pokemon.typing[0] + "-light"
-						}">
-                <div class="pokemon-number">${pokemon.number}</div>
-                <div class="pokemon-box">
-                    <div class="pokemon-img ${
-											pokemon.typing[0] + "-super-light"
-										} ${pokemon.typing[0] + "-super-light-shadow"}">
-                        <img src="${pokemon.sprite}"">
-                    </div>
-                    <div class="pokemon-name">${pokemon.name}</div>
-                    <div class="pokemon-types">
-                        <div>
-                            <div id="pokemonType" class="type-icon ${
-															pokemon.typing[0]
-														}">
-                                <img src="./assets/icons/${
-																	pokemon.typing[0]
-																}.svg">
-                            </div>
-                        </div>
-                        <div>
-                            <div id="pokemonType" class="type-icon ${
-															pokemon.typing[1]
-																? pokemon.typing[1]
-																: "no-second-type"
-														}">
-                                <img src="./assets/icons/${
-																	pokemon.typing[1]
-																}.svg">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <section class="pokemon-info">
-                <div class="pokemon-info__flex-box">
-                    <div>Typing:</div>
-                    <div class="types">
-                        <div>${pokemon.typing[0]}</div>
-                        <div ${
-													pokemon.typing[1]
-														? pokemon.typing[1]
-														: "class=no-second-type"
-												}">${pokemon.typing[1] ? pokemon.typing[1] : ""}
-                        </div>
-                    </div>
-                </div>
-                <div class="pokemon-info__flex-box">
-                    <div>Height:</div>
-                    <div>${pokemon.height}</div>
-                </div>
-                <div class="pokemon-info__flex-box">
-                    <div>Weight:</div>
-                    <div>${pokemon.weight}</div>
-                </div>
-                <div class="pokemon-info__flex-box">
-                    <div>Abilities:</div>
-                    <div>?</div>
-                </div>
-            </section>
-        </div>`;
+	<div id="${pokemonId}" class="pokemon-container ${primaryType}-light">
+		<section class="pokemon-container__header ${primaryType}-light">
+			<div class="pokemon-number">${pokemon.number}</div>
+			<div class="pokemon-box">
+				<div class="pokemon-img ${primaryType}-super-light ${primaryType}-super-light-shadow">
+					<img src="${sprite}">
+				</div>
+				<div class="pokemon-name">${pokemon.name}</div>
+				<div class="pokemon-types">
+					<div class="type-icon ${primaryType}">${typeIcon(primaryType)}</div>
+					<div class="type-icon ${secondaryType}">${
+		secondaryType !== "no-second-type" ? typeIcon(secondaryType) : ""
+	}</div>
+				</div>
+			</div>
+		</section>
+		<section class="pokemon-info">
+			<div class="pokemon-info__flex-box"><div>Typing:</div><div class="types"><div>${primaryType}</div><div class="${
+		secondaryType === "no-second-type" ? "no-second-type" : ""
+	}">${
+		secondaryType !== "no-second-type" ? secondaryType : ""
+	}</div></div></div>
+			<div class="pokemon-info__flex-box"><div>Height:</div><div>${
+				pokemon.height
+			}</div></div>
+			<div class="pokemon-info__flex-box"><div>Weight:</div><div>${
+				pokemon.weight
+			}</div></div>
+			<div class="pokemon-info__flex-box"><div>Ability:</div><div>${
+				pokemon.ability
+			}</div></div>
+		</section>
+	</div>`;
 }
 
 function loadMoreButtonHTML(region) {
