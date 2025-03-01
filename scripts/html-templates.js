@@ -4,7 +4,6 @@ function pokemonContainerHTML(pokemon, pokemonId, i) {
 	const sprite = pokemon.sprite;
 	const typeIcon = (type) =>
 		`<img src="./assets/icons/${type}.svg" alt="${type} type">`;
-
 	return /*html*/ `
 	<div id="${pokemonId}" class="pokemon-container ${primaryType}-light">
 		<section class="pokemon-container__header ${primaryType}-light">

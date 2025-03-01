@@ -11,13 +11,36 @@
     <link rel="stylesheet" href="./styles/icons.css">
     <link rel="stylesheet" href="./styles/main.css">
     <link rel="stylesheet" href="./styles/pokemon.css">
+    <link rel="stylesheet" href="./styles/overlay.css">
     <link rel="stylesheet" href="./styles/templates.css">
     <title>Pokédex</title>
 </head>
 
-<body onload="includeHTML(),initPage()">
+<body onload="initPokedex('Kanto')">
 
-    <div w3-include-html="./templates/header.html"></div>
+    <header class="header">
+        <a class="logo-container" href="#">
+            <img class="logo-container__pokeball-icon" src="./assets/icons/pokeball.png">
+            <div class="logo-container__title">Pokédex</div>
+        </a>
+        <div class="search-container">
+            <input type="text" id="searchBar" class="search-bar" placeholder="Pokémon suchen..."
+                onkeyup="searchPokemon()">
+            <ul id="suggestions" class="suggestions-list"></ul>
+        </div>
+        <div class="button-container">
+            <button id="kantoButton" class="pokedex-button" onclick="initPokedex('Kanto')">KANTO</button>
+            <button id="johtoButton" class="pokedex-button" onclick="initPokedex('Johto')">JOHTO</button>
+            <button id="hoennButton" class="pokedex-button" onclick="initPokedex('Hoenn')">HOENN</button>
+            <button id="sinnohButton" class="pokedex-button" onclick="initPokedex('Sinnoh')">SINNOH</button>
+            <button id="unovaButton" class="pokedex-button" onclick="initPokedex('Unova')">UNOVA</button>
+            <button id="kalosButton" class="pokedex-button" onclick="initPokedex('Kalos')">KALOS</button>
+            <button id="alolaButton" class="pokedex-button" onclick="initPokedex('Alola')">ALOLA</button>
+            <button id="galarButton" class="pokedex-button" onclick="initPokedex('Galar')">GALAR</button>
+            <button id="paldeaButton" class="pokedex-button" onclick="initPokedex('Paldea')">PALDEA</button>
+        </div>
+    </header>
+
     <main id="main" class="pokedex-container">
         <div id="pokemonContainer" class="pokedex-container"></div>
         <div id="loadMoreButtonContainer"></div>
@@ -28,11 +51,21 @@
         </div>
     </div>
 
+    <div id="pokemonOverlay" class="pokemon-overlay" onclick="closePokemonOverlay(event)">
+        <div id="pokemonDetails" class="pokemon-details" onclick="event.stopPropagation()">
+            <button class="close-button" onclick="closePokemonOverlay(event)">X</button>
+            <div id="pokemonContent"></div>
+            <button class="nav-button left" onclick="navigatePokemon(-1)">◀</button>
+            <button class="nav-button right" onclick="navigatePokemon(1)">▶</button>
+        </div>
+    </div>
 
-    <script src="./scripts/include-html.js"></script>
+
     <script src="./scripts/db.js"></script>
     <script src="./scripts/html-templates.js"></script>
     <script src="./scripts/script.js"></script>
+
+
 
 </body>
 
