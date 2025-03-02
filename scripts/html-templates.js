@@ -14,8 +14,8 @@ function pokemonContainerHTML(pokemon, pokemonId, i) {
 				</div>
 				<div class="pokemon-name">${pokemon.name}</div>
 				<div class="pokemon-types">
-					<div class="type-icon ${primaryType}">${typeIcon(primaryType)}</div>
-					<div class="type-icon ${secondaryType}">${
+					<div class="type-icon-small ${primaryType}">${typeIcon(primaryType)}</div>
+					<div class="type-icon-small ${secondaryType}">${
 		secondaryType !== "no-second-type" ? typeIcon(secondaryType) : ""
 	}</div>
 				</div>
@@ -46,6 +46,9 @@ function loadMoreButtonHTML(region) {
 
 function overlayHTML(pokemon) {
 	const primaryType = pokemon.typing[0];
+	const secondaryType = pokemon.typing[1] || "no-second-type";
+	const typeIcon = (type) =>
+		`<img src="./assets/icons/${type}.svg" alt="${type} type">`;
 	return /*html*/ `
 	<div id="pokemonDetails" class="pokemon-details ${primaryType}-light" onclick="event.stopPropagation()">
             <button class="close-button" onclick="closeOverlay(event)">X</button>
@@ -55,6 +58,11 @@ function overlayHTML(pokemon) {
 				<img class="pokemon-img-overlay" src="${pokemon.sprite}" alt="${pokemon.name}">
 			</div>
 			<div class="pokemon-name">${pokemon.name}</div>
+			<div class="pokemon-types">
+					<div class="type-icon-big ${primaryType}">${typeIcon(primaryType)}</div>
+					<div class="type-icon-big ${secondaryType}">${
+		secondaryType !== "no-second-type" ? typeIcon(secondaryType) : ""
+	}</div>
 		</div>
 	</section>
 	<section class="overlay-bottom">

@@ -59,6 +59,35 @@
 	gap: 8px;
 }
 
+.type-icon-small {
+	display: flex;
+	border-radius: 100%;
+	height: 24px;
+	width: 24px;
+	margin: auto;
+	filter: saturate(200%);
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+	transition: 200ms all;
+}
+
+.type-icon-big {
+	display: flex;
+	border-radius: 100%;
+	height: 40px;
+	width: 40px;
+	margin: auto;
+	filter: saturate(200%);
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+	transition: 200ms all;
+}
+
+.type-icon-small img,
+.type-icon-big img {
+	height: 60%;
+	width: 60%;
+	margin: 20%;
+}
+
 .no-second-type {
 	display: none;
 }
@@ -128,7 +157,7 @@
 }
 
 .stat {
-	border: 1px solid var(--red);
+	border: 1px solid var(--red-light);
 	border-radius: 8px;
 	padding: 2px;
 	margin: 2px;
@@ -158,21 +187,32 @@
 	border: none;
 	border-radius: 8px;
 	padding: 10px;
-	background: var(--red);
+	background: var(--red-light);
 	color: var(--white);
 	cursor: pointer;
+	transition: all 0.2s;
+}
+
+.close-button:hover {
+	background: var(--red);
+	transform: scale(1.2);
 }
 
 .nav-button {
 	position: absolute;
 	top: 50%;
-	/* transform: translateY(-50%); */
 	border: none;
 	border-radius: 8px;
 	padding: 10px;
-	background: var(--red);
+	background: var(--red-light);
 	color: var(--white);
 	cursor: pointer;
+	transition: all 0.2s;
+}
+
+.nav-button:hover {
+	background: var(--red);
+	transform: scale(1.2);
 }
 
 .nav-button.left {

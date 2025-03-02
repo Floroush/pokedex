@@ -183,20 +183,6 @@ function loadRegionDataFromLocalStorage(region) {
 	}
 }
 
-async function updatePokemonStats(region) {
-	for (let i = 0; i < completePokedex[region].length; i++) {
-		let pokemon = completePokedex[region][i];
-
-		if (pokemon.special_attack === undefined) {
-			console.log(`Fetching updated stats for ${pokemon.name}...`);
-			let response = await fetch(`${BASE_URL}${pokemon.number}`);
-			let data = await response.json();
-			let stats = extractStats(data);
-			Object.assign(completePokedex[region][i], stats);
-		}
-	}
-}
-
 function displayPokedex(region) {
 	toggleRegionButton(region.toLowerCase() + "Button");
 	loadRegionDataToContainer(region);

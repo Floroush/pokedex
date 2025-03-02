@@ -1,5 +1,6 @@
 .header {
 	display: flex;
+	align-items: center;
 	justify-content: space-between;
 	gap: 24px;
 	padding: 16px;
@@ -27,7 +28,6 @@
 }
 
 .search-container {
-	display: flex;
 }
 
 .search-bar {
