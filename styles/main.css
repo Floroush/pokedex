@@ -1,3 +1,9 @@
+body {
+	display: flex;
+	flex-direction: column;
+	min-height: 100dvh;
+}
+
 .pokedex-container {
 	display: flex;
 	align-content: flex-start;
@@ -49,4 +55,11 @@
 	border-radius: 8px;
 	font-size: 18px;
 	font-weight: bold;
+}
+
+.about {
+	flex: 1;
+	padding: 20px;
+	overflow-y: auto;
+	background: var(--red-light);
 }

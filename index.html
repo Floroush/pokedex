@@ -11,13 +11,14 @@
     <link rel="stylesheet" href="./styles/sections.css">
     <link rel="stylesheet" href="./styles/main.css">
     <link rel="stylesheet" href="./styles/pokemon.css">
+    <link rel="stylesheet" href="./styles/about.css">
     <title>Pokédex</title>
 </head>
 
-<body onload="initPokedex('Kanto')">
+<body onload="includeHTML(),initPokedex('Kanto')">
 
     <header class="header">
-        <a class="logo-container" href="#">
+        <a class="logo-container" href="./index.html">
             <img class="logo-container__pokeball-icon" src="./assets/icons/pokeball.png">
             <div class="logo-container__title">Pokédex</div>
         </a>
@@ -53,16 +54,12 @@
         <div id="overlayContent"></div>
     </div>
 
-    <footer class="footer">
-        <p>Copyright by Florian Araújo (2025)</p>
-        <a class="impressum-link" href="">Impressum</a>
-    </footer>
+    <div w3-include-html="./templates/footer.html"></div>
 
+    <script src="./scripts/include-html.js"></script>
     <script src="./scripts/db.js"></script>
     <script src="./scripts/html-templates.js"></script>
     <script src="./scripts/script.js"></script>
-
-
 
 </body>
 

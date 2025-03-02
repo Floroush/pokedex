@@ -131,7 +131,41 @@
 	display: flex;
 	justify-content: space-between;
 	gap: 24px;
-	padding: 16px;
+	padding: 24px;
 	background: var(--white);
 	color: var(--black);
+}
+
+.footer__copyright {
+}
+
+.copyright__logo-footer {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	cursor: pointer;
+}
+
+.logo-footer__pokeball-icon {
+	height: 16px;
+	background: var(--black);
+	border-radius: 50%;
+}
+
+.logo-footer__title {
+	font-size: 14px;
+	font-weight: bold;
+}
+
+.footer__more-info {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.more-info__separator {
+	width: 1px;
+	height: 24px;
+	background-color: black;
+	margin: 0 8px 0;
 }
