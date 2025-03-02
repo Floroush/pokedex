@@ -72,7 +72,6 @@
 	color: white;
 }
 
-/* Animation für Pokémon-Karten */
 .pokemon-card {
 	opacity: 0;
 	transform: translateY(10px);
@@ -126,4 +125,13 @@
 	background: var(--hover-blue);
 	color: var(--white);
 	cursor: pointer;
+}
+
+.footer {
+	display: flex;
+	justify-content: space-between;
+	gap: 24px;
+	padding: 16px;
+	background: var(--white);
+	color: var(--black);
 }

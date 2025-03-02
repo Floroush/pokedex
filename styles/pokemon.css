@@ -16,25 +16,17 @@
 	color: var(--black);
 }
 
-.pokemon-number {
-	/* display: flex;
-	border: 1px solid var(--white);
-	border-radius: 8px;
-	padding: 2px;
-	background: var(--white); */
-}
-
 .pokemon-img {
 	border-radius: 100%;
 	display: flex;
 }
 
-.pokemon-img img {
+.pokemon-img-card {
 	padding: 8px;
 	transition: all 0.2s;
 }
 
-.pokemon-img img:hover {
+.pokemon-img-card:hover {
 	filter: saturate(200%);
 	transform: scale(1.2);
 	border-radius: 100%;
@@ -43,13 +35,13 @@
 	cursor: pointer;
 }
 
-.pokemon-img img:focus {
+.pokemon-img-cardmg:focus {
 	filter: saturate(200%);
 	transform: scale(1.1);
 	cursor: pointer;
 }
 
-.pokemon-img img:active {
+.pokemon-img-card:active {
 	filter: saturate(200%);
 	transform: scale(1.1);
 	cursor: pointer;
@@ -72,8 +64,6 @@
 }
 
 .pokemon-info {
-	/* -webkit-border-bottom-right-radius: 8px;
-	-webkit-border-bottom-left-radius: 8px; */
 	display: flex;
 	flex-flow: column;
 	border-radius: 8px;
@@ -92,4 +82,103 @@
 .types {
 	display: flex;
 	gap: 6px;
+}
+
+.overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	display: none;
+	width: 100vw;
+	height: 100vh;
+	align-items: center;
+	justify-content: center;
+	background: rgba(0, 0, 0, 0.8);
+	z-index: 1000;
+}
+
+.gap {
+	gap: 8px;
+	align-items: center;
+}
+
+.overlay-top {
+	padding: 24px;
+}
+
+.pokemon-details {
+	position: relative;
+	border-radius: 10px;
+	width: 400px;
+	text-align: center;
+}
+
+.pokemon-img-overlay {
+	padding: 16px;
+}
+
+.overlay-bottom__section {
+	display: flex;
+	justify-content: space-between;
+}
+
+.overlay-pokemon-stats {
+	display: flex;
+	flex-flow: column;
+}
+
+.stat {
+	border: 1px solid var(--red);
+	border-radius: 8px;
+	padding: 2px;
+	margin: 2px;
+}
+
+.hr {
+	margin: 8px;
+}
+
+.overlay-bottom__base-stats {
+	display: flex;
+	justify-content: center;
+}
+
+.base-stats {
+	border: 1px solid var(--black);
+	border-radius: 8px;
+	padding: 8px;
+	padding: 2px;
+	margin: 2px;
+}
+
+.close-button {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	border: none;
+	border-radius: 8px;
+	padding: 10px;
+	background: var(--red);
+	color: var(--white);
+	cursor: pointer;
+}
+
+.nav-button {
+	position: absolute;
+	top: 50%;
+	/* transform: translateY(-50%); */
+	border: none;
+	border-radius: 8px;
+	padding: 10px;
+	background: var(--red);
+	color: var(--white);
+	cursor: pointer;
+}
+
+.nav-button.left {
+	left: -40px;
+}
+
+.nav-button.right {
+	right: -40px;
 }

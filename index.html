@@ -9,10 +9,9 @@
     <link rel="stylesheet" href="./styles/colors.css">
     <link rel="stylesheet" href="./styles/fonts.css">
     <link rel="stylesheet" href="./styles/icons.css">
+    <link rel="stylesheet" href="./styles/sections.css">
     <link rel="stylesheet" href="./styles/main.css">
     <link rel="stylesheet" href="./styles/pokemon.css">
-    <link rel="stylesheet" href="./styles/overlay.css">
-    <link rel="stylesheet" href="./styles/templates.css">
     <title>Pokédex</title>
 </head>
 
@@ -51,15 +50,14 @@
         </div>
     </div>
 
-    <div id="pokemonOverlay" class="pokemon-overlay" onclick="closePokemonOverlay(event)">
-        <div id="pokemonDetails" class="pokemon-details" onclick="event.stopPropagation()">
-            <button class="close-button" onclick="closePokemonOverlay(event)">X</button>
-            <div id="pokemonContent"></div>
-            <button class="nav-button left" onclick="navigatePokemon(-1)">◀</button>
-            <button class="nav-button right" onclick="navigatePokemon(1)">▶</button>
-        </div>
+    <div id="overlay" class="overlay" onclick="closeOverlay(event)">
+        <div id="overlayContent"></div>
     </div>
 
+    <footer class="footer">
+        <p>Copyright by Florian Araújo (2025)</p>
+        <a class="impressum-link" href="">Impressum</a>
+    </footer>
 
     <script src="./scripts/db.js"></script>
     <script src="./scripts/html-templates.js"></script>

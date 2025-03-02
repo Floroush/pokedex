@@ -9,12 +9,6 @@
 	transition: 200ms all;
 }
 
-/* .type-icon:hover {
-	filter: saturate(200%);
-	transform: scale(1.1);
-	cursor: pointer;
-} */
-
 .type-icon img {
 	height: 60%;
 	width: 60%;

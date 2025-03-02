@@ -116,6 +116,17 @@ function extractStats(data) {
 	};
 }
 
+function calculateBaseStatsTotal(pokemon) {
+	return (
+		pokemon.hp +
+		pokemon.attack +
+		pokemon.defense +
+		pokemon.special_attack +
+		pokemon.special_defense +
+		pokemon.speed
+	);
+}
+
 function getRegionForPokemon(id) {
 	const regions = new Map([
 		["Kanto", [1, 151]],
@@ -217,7 +228,7 @@ function addPokemonToContainer(
 ) {
 	const pokemonCardHTML = pokemonContainerHTML(pokemon, pokemonId, index);
 	pokemonContainer.innerHTML += `
-        <div class="pokemon-card" onclick="openPokemonOverlay(${index}, '${region}')">
+        <div class="pokemon-card" onclick="openOverlay(${index}, '${region}')">
             ${pokemonCardHTML}
         </div>
     `;
@@ -356,16 +367,16 @@ function clearSuggestions(suggestionsList) {
 let currentPokemonIndex = 0;
 let currentRegion = "Kanto";
 
-function openPokemonOverlay(index, region) {
+function openOverlay(index, region) {
 	currentPokemonIndex = index;
 	currentRegion = region;
-	updatePokemonOverlay();
-	document.getElementById("pokemonOverlay").style.display = "flex";
+	updateOverlay();
+	document.getElementById("overlay").style.display = "flex";
 	document.body.style.overflow = "hidden";
 }
 
-function closePokemonOverlay(event) {
-	document.getElementById("pokemonOverlay").style.display = "none";
+function closeOverlay(event) {
+	document.getElementById("overlay").style.display = "none";
 	document.body.style.overflow = "auto";
 }
 
@@ -373,29 +384,17 @@ function navigatePokemon(direction) {
 	let regionData = completePokedex[currentRegion];
 	currentPokemonIndex =
 		(currentPokemonIndex + direction + regionData.length) % regionData.length;
-	updatePokemonOverlay();
+	updateOverlay();
 }
 
-function updatePokemonOverlay() {
+// function updateOverlay() {
+// 	let regionData = completePokedex[currentRegion];
+// 	let pokemon = regionData[currentPokemonIndex];
+// 	document.getElementById("overlayContent").innerHTML = overlayHTML(pokemon);
+// }
+
+function updateOverlay() {
 	let regionData = completePokedex[currentRegion];
 	let pokemon = regionData[currentPokemonIndex];
-	if (!pokemon) {
-		console.error(
-			"Pokemon not found at index:",
-			currentPokemonIndex,
-			"in",
-			currentRegion
-		);
-		return;
-	}
-	document.getElementById("pokemonContent").innerHTML = `
-        <h2>${pokemon.name}</h2>
-        <img src="${pokemon.sprite}" alt="${pokemon.name}">
-        <p>HP: ${pokemon.hp}</p>
-        <p>Attack: ${pokemon.attack}</p>
-        <p>Defense: ${pokemon.defense}</p>
-        <p>Sp. Attack: ${pokemon.special_attack}</p>
-        <p>Sp. Defense: ${pokemon.special_defense}</p>
-        <p>Speed: ${pokemon.speed}</p>
-    `;
+	document.getElementById("overlayContent").innerHTML = overlayHTML(pokemon);
 }
