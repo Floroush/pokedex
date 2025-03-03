@@ -53,3 +53,7 @@ h6 {
 button {
 	all: unset;
 }
+
+li {
+	list-style: none;
+}

@@ -292,26 +292,90 @@ async function loadMoreData(region, startId, endId) {
 	}
 }
 
+// function searchPokemon() {
+// 	let input = document.getElementById("searchBar").value.toLowerCase();
+// 	let pokemonContainer = document.getElementById("pokemonContainer");
+// 	let suggestionsList = document.getElementById("suggestions");
+// 	if (input.length < 3) {
+// 		displayPokedex("Kanto");
+// 		toggleLoadMoreButton();
+// 		clearSuggestions(suggestionsList);
+// 		return;
+// 	}
+// 	let filteredPokemon = filterPokemon(input);
+// 	displaySuggestions(filteredPokemon, suggestionsList);
+// 	displayFilteredPokemon(filteredPokemon, pokemonContainer);
+// 	// document.getElementById("loadMoreButton").style.display = "none";
+// 	toggleLoadMoreButton("Kanto"); // Ensure button updates dynamically
+// }
+
+// function filterPokemon(input) {
+// 	return completePokedex["Kanto"].filter((pokemon) =>
+// 		pokemon.name.toLowerCase().includes(input)
+// 	);
+// }
+
+// function displaySuggestions(filteredPokemon, suggestionsList) {
+// 	suggestionsList.innerHTML = "";
+// 	if (filteredPokemon.length === 0) {
+// 		suggestionsList.style.display = "none";
+// 	} else {
+// 		filteredPokemon.forEach((pokemon) => {
+// 			let li = document.createElement("li");
+// 			li.textContent = pokemon.name;
+// 			li.onclick = function () {
+// 				document.getElementById("searchBar").value = pokemon.name;
+// 				searchPokemon();
+// 				suggestionsList.style.display = "none";
+// 			};
+// 			suggestionsList.appendChild(li);
+// 		});
+// 		suggestionsList.style.display = "block";
+// 	}
+// }
+
+// function displayFilteredPokemon(filteredPokemon, pokemonContainer) {
+// 	pokemonContainer.innerHTML = "";
+// 	if (filteredPokemon.length === 0) {
+// 		pokemonContainer.innerHTML = `<p>No Pokémon found.</p>`;
+// 	} else {
+// 		filteredPokemon.forEach((pokemon, i) => {
+// 			let pokemonId = `Kanto${i + 1}`;
+// 			pokemonContainer.innerHTML += pokemonContainerHTML(pokemon, pokemonId, i);
+// 		});
+// 	}
+// }
+
+// function clearSuggestions(suggestionsList) {
+// 	suggestionsList.innerHTML = "";
+// 	suggestionsList.style.display = "none";
+// }
+
 function searchPokemon() {
 	let input = document.getElementById("searchBar").value.toLowerCase();
 	let pokemonContainer = document.getElementById("pokemonContainer");
 	let suggestionsList = document.getElementById("suggestions");
 	if (input.length < 3) {
-		displayPokedex("Kanto");
-		toggleLoadMoreButton();
+		displayPokedex(currentRegion);
+		toggleLoadMoreButton(currentRegion);
 		clearSuggestions(suggestionsList);
 		return;
 	}
-	let filteredPokemon = filterPokemon(input);
+	let filteredPokemon = filterPokemonAcrossRegions(input);
 	displaySuggestions(filteredPokemon, suggestionsList);
 	displayFilteredPokemon(filteredPokemon, pokemonContainer);
-	document.getElementById("loadMoreButton").style.display = "none";
+	toggleLoadMoreButton(currentRegion);
 }
 
-function filterPokemon(input) {
-	return completePokedex["Kanto"].filter((pokemon) =>
-		pokemon.name.toLowerCase().includes(input)
-	);
+function filterPokemonAcrossRegions(input) {
+	let filteredPokemon = [];
+	for (let region in completePokedex) {
+		let regionPokemon = completePokedex[region].filter((pokemon) =>
+			pokemon.name.toLowerCase().includes(input)
+		);
+		filteredPokemon = filteredPokemon.concat(regionPokemon);
+	}
+	return filteredPokemon;
 }
 
 function displaySuggestions(filteredPokemon, suggestionsList) {
@@ -339,7 +403,7 @@ function displayFilteredPokemon(filteredPokemon, pokemonContainer) {
 		pokemonContainer.innerHTML = `<p>No Pokémon found.</p>`;
 	} else {
 		filteredPokemon.forEach((pokemon, i) => {
-			let pokemonId = `Kanto${i + 1}`;
+			let pokemonId = `${pokemon.region}${i + 1}`;
 			pokemonContainer.innerHTML += pokemonContainerHTML(pokemon, pokemonId, i);
 		});
 	}
@@ -372,12 +436,6 @@ function navigatePokemon(direction) {
 		(currentPokemonIndex + direction + regionData.length) % regionData.length;
 	updateOverlay();
 }
-
-// function updateOverlay() {
-// 	let regionData = completePokedex[currentRegion];
-// 	let pokemon = regionData[currentPokemonIndex];
-// 	document.getElementById("overlayContent").innerHTML = overlayHTML(pokemon);
-// }
 
 function updateOverlay() {
 	let regionData = completePokedex[currentRegion];

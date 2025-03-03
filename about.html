@@ -11,76 +11,62 @@
     <link rel="stylesheet" href="./styles/sections.css">
     <link rel="stylesheet" href="./styles/main.css">
     <link rel="stylesheet" href="./styles/pokemon.css">
-    <link rel="stylesheet" href="./styles/about.css">
     <script src="./scripts/include-html.js"></script>
+    <script src="./scripts/html-templates.js"></script>
     <title>Pokédex</title>
 </head>
 
 <body onload="includeHTML()">
 
-    <header class="header">
-        <a class="logo-container" href="./index.html">
-            <img class="logo-container__pokeball-icon" src="./assets/icons/pokeball.png">
-            <div class="logo-container__title">Pokédex</div>
-        </a>
-    </header>
+    <div w3-include-html="./templates/header-about.html"></div>
 
     <main class="about">
-        <div class="container-internal-links">
-            <h2>About</h2>
-            <div>
-                <h3>Information pursuant to § 5 TMG (Germany)</h3>
 
-                <address>
-                    Pokédex <br>
-                    Tukanstr. 1 <br>
-                    D-12345 Tukanstadt
-                    <br>
-                    <br>
-                    Represented by: <br>
-                    Florian Araújo
-                    <br>
-                    <br>
-                    Contact: <br>
-                    Phone: 0162-1234567 <br>
-                    Email: info@toucannotes.de.com
-                    <br>
-                    <br>
-                    VAT ID pursuant to § 27a UStG (Germany): <b>Sample ID
-                    </b> <br>
-                    Business ID: <b>Sample ID
+        <h2 class="h2">About</h2>
 
-                    </b>
-                </address>
-            </div>
+        <div>
+            <h3 class="h3">Information pursuant to § 5 TMG (Germany)</h3>
+            <address class="address">
+                Pokédex <br>
+                Represented by: Florian Araújo <br>
+                Tukanstr. 1 <br>
+                D-12345 Tukanstadt <br>
+                <a href="tel:+491621234567">+49 162 1234567</a> <br>
+                <a href="mailto:info@toucannotes.de.com">info@toucannotes.de.com</a> <br>
+                <br>
+                VAT ID pursuant to § 27a UStG (Germany): <b>Sample ID</b> <br>
+                Business ID: <b>Sample ID</b>
+            </address>
+        </div>
 
-            <div>
-                <h3>Credits</h3>
-                <p>
-                    The icons are provided by: <a href="https://icons8.com/" rel="nofollow" target="_blank">ICONS8</a>
+
+
+        <div>
+            <h3 class="h3">Credits</h3>
+            <p>
+                <small>The icons are provided by: <a href="https://icons8.com/" rel="nofollow"
+                        target="_blank">ICONS8</a>
                     under the
                     <a href="https://icons8.com/license" target="_blank"
                         rel="nofollow">Creative&nbsp;Commons&nbsp;Attribution&nbsp;4.0&nbsp;International&nbsp;License
                     </a>
-                    <br>
-                    The images are provided by:
-                    <a href="https://www.freepikcompany.com/" rel="nofollow" target="_blank">
-                        Freepik
+                </small>
+            </p>
+            <p>
+                <small>Other icons are provided by:
+                    <a href="https://github.com/duiker101/pokemon-type-svg-icons" rel="nofollow" target="_blank">
+                        duiker101 (GitHub)
                     </a>
-                    <a href="https://www.freepikcompany.com/legal?_gl=1*1nwt2cc*fp_ga*MTk0MjM5MDIzMi4xNjg5MDMyMDcw*fp_ga_QWX66025LC*MTY4OTUyMjA5Mi4zLjEuMTY4OTUyMjIyNS41NC4wLjA.*_ga*MTk0MjM5MDIzMi4xNjg5MDMyMDcw*_ga_18B6QPTJPC*MTY4OTUyMjA5Mi4zLjEuMTY4OTUyMjIyNS41NC4wLjA.#nav-freepik"
-                        target="_blank" rel="nofollow">
-                        (License)
-                    </a>
-                </p>
-            </div>
+                </small>
+            </p>
+
         </div>
+
     </main>
 
     <div w3-include-html="./templates/footer.html"></div>
 
-    <script src="./scripts/include-html.js"></script>
     <script src="./scripts/db.js"></script>
-    <script src="./scripts/html-templates.js"></script>
     <script src="./scripts/script.js"></script>
 
 </body>
