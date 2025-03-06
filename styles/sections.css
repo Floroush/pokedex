@@ -1,9 +1,10 @@
 .header {
 	display: flex;
 	align-items: center;
+	flex-direction: column;
+	gap: 10px;
 	justify-content: space-between;
-	gap: 24px;
-	padding: 16px;
+	padding: 12px;
 	background: var(--white);
 	color: var(--black);
 }
@@ -12,7 +13,6 @@
 	display: flex;
 	align-items: center;
 	gap: 8px;
-	padding: 16px;
 	cursor: pointer;
 }
 
@@ -27,21 +27,34 @@
 	font-weight: bold;
 }
 
-.search-container {
-}
-
 .search-bar {
 	width: 200px;
-	padding: 8px;
-	border: 2px dotted var(--black);
+	padding: 6px;
+	border: 1px dotted var(--black);
 	border-radius: 5px;
-	font-size: 16px;
+	font-size: 12px;
 	outline: none;
-	transition: 0.3s;
+	/* transition: 0.3s; */
+}
+
+.search-container {
+	position: relative;
+	display: flex;
+	align-items: center;
+}
+
+.clear-button {
+	position: absolute;
+	right: 8px;
+	background: none;
+	border: none;
+	font-size: 16px;
+	cursor: pointer;
+	display: none;
 }
 
 .search-bar:focus {
-	border: 2px solid var(--black);
+	border: 1px solid var(--black);
 }
 
 .suggestions-list {
@@ -92,51 +105,39 @@
 .button-container {
 	display: flex;
 	flex-wrap: wrap;
-	gap: 8px;
+	gap: 6px;
 }
 
 .pokedex-button {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	border: 2px dotted var(--black);
+	border: 1px dotted var(--black);
 	border-radius: 8px;
-	padding: 10px;
+	padding: 8px;
 	transition: all 0.5s;
+	font-size: 10px;
 }
 
-.pokedex-button:hover {
-	border: 2px solid var(--black);
-	background: var(--hover-blue);
-	color: var(--white);
-	cursor: pointer;
-}
-
-.pokedex-button:focus {
-	border: 2px solid var(--black);
-	background: var(--hover-blue);
-	color: var(--white);
-	cursor: pointer;
-}
-
+.pokedex-button:hover,
+.pokedex-button:focus,
 .pokedex-button:active,
 .pokedex-button.active {
-	border: 2px solid var(--black);
+	border: 1px solid var(--black);
 	background: var(--hover-blue);
 	color: var(--white);
 	cursor: pointer;
+	font-size: 10px;
 }
 
 .footer {
 	display: flex;
-	justify-content: space-between;
-	gap: 24px;
-	padding: 24px;
+	flex-flow: column;
+	align-items: center;
+	gap: 14px;
+	padding: 12px;
 	background: var(--white);
 	color: var(--black);
-}
-
-.footer__copyright {
 }
 
 .copyright__logo-footer {
@@ -161,6 +162,7 @@
 	display: flex;
 	align-items: center;
 	gap: 10px;
+	padding: 0px;
 }
 
 .more-info__separator {
@@ -168,4 +170,117 @@
 	height: 24px;
 	background-color: black;
 	margin: 0 8px 0;
+}
+
+@media (min-width: 740px) {
+	.header {
+		display: flex;
+		align-items: center;
+		flex-flow: row;
+		gap: 24px;
+		justify-content: space-between;
+		padding: 16px;
+		background: var(--white);
+		color: var(--black);
+	}
+	.logo-container {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		padding: 16px;
+		cursor: pointer;
+	}
+
+	.logo-container__pokeball-icon {
+		height: 24px;
+		background: var(--black);
+		border-radius: 50%;
+	}
+
+	.logo-container__title {
+		font-size: 18px;
+		font-weight: bold;
+	}
+
+	.search-bar {
+		width: 200px;
+		padding: 8px;
+		border: 2px dotted var(--black);
+		border-radius: 5px;
+		font-size: 16px;
+		outline: none;
+		transition: 0.3s;
+	}
+
+	.search-container {
+		position: relative;
+		display: flex;
+		align-items: center;
+	}
+
+	.clear-button {
+		position: absolute;
+		right: 8px;
+		background: none;
+		border: none;
+		font-size: 18px;
+		cursor: pointer;
+		display: none;
+	}
+
+	.search-bar:focus {
+		border: 2px solid var(--black);
+	}
+	.pokedex-button {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border: 2px dotted var(--black);
+		border-radius: 8px;
+		padding: 10px;
+		transition: all 0.5s;
+	}
+
+	.pokedex-button:hover,
+	.pokedex-button:focus,
+	.pokedex-button:active,
+	.pokedex-button.active {
+		border: 2px solid var(--black);
+	}
+
+	.footer {
+		justify-content: space-between;
+		padding: 24px;
+	}
+
+	.copyright__logo-footer {
+		display: flex;
+		align-items: center;
+		gap: 6px;
+		cursor: pointer;
+	}
+
+	.logo-footer__pokeball-icon {
+		height: 16px;
+		background: var(--black);
+		border-radius: 50%;
+	}
+
+	.logo-footer__title {
+		font-size: 14px;
+		font-weight: bold;
+	}
+
+	.footer__more-info {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+	}
+
+	.more-info__separator {
+		width: 1px;
+		height: 24px;
+		background-color: black;
+		margin: 0 8px 0;
+	}
 }

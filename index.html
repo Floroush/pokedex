@@ -19,15 +19,19 @@
 <body onload="includeHTML(),initPokedex('Kanto')">
 
     <header class="header">
+
         <a class="logo-container" href="./index.html">
             <img class="logo-container__pokeball-icon" src="./assets/icons/pokeball.png">
             <div class="logo-container__title">Pokédex</div>
         </a>
+
         <div class="search-container">
-            <input type="text" id="searchBar" class="search-bar" placeholder="Pokémon suchen..."
+            <input id="searchBar" class="search-bar" type="text" placeholder="Pokémon suchen..."
                 onkeyup="searchPokemon()">
+            <button id="clearButton" class="clear-button" onclick="clearSearch()">×</button>
             <ul id="suggestions" class="suggestions-list"></ul>
         </div>
+
         <ul class="button-container">
             <li><button id="kantoButton" class="pokedex-button" onclick="initPokedex('Kanto')">KANTO</button></li>
             <li><button id="johtoButton" class="pokedex-button" onclick="initPokedex('Johto')">JOHTO</button></li>
@@ -39,6 +43,7 @@
             <li><button id="galarButton" class="pokedex-button" onclick="initPokedex('Galar')">GALAR</button></li>
             <li><button id="paldeaButton" class="pokedex-button" onclick="initPokedex('Paldea')">PALDEA</button></li>
         </ul>
+
     </header>
 
     <main id="main" class="pokedex-container">

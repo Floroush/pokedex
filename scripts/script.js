@@ -292,75 +292,38 @@ async function loadMoreData(region, startId, endId) {
 	}
 }
 
-// function searchPokemon() {
-// 	let input = document.getElementById("searchBar").value.toLowerCase();
-// 	let pokemonContainer = document.getElementById("pokemonContainer");
-// 	let suggestionsList = document.getElementById("suggestions");
-// 	if (input.length < 3) {
-// 		displayPokedex("Kanto");
-// 		toggleLoadMoreButton();
-// 		clearSuggestions(suggestionsList);
-// 		return;
-// 	}
-// 	let filteredPokemon = filterPokemon(input);
-// 	displaySuggestions(filteredPokemon, suggestionsList);
-// 	displayFilteredPokemon(filteredPokemon, pokemonContainer);
-// 	// document.getElementById("loadMoreButton").style.display = "none";
-// 	toggleLoadMoreButton("Kanto"); // Ensure button updates dynamically
-// }
-
-// function filterPokemon(input) {
-// 	return completePokedex["Kanto"].filter((pokemon) =>
-// 		pokemon.name.toLowerCase().includes(input)
-// 	);
-// }
-
-// function displaySuggestions(filteredPokemon, suggestionsList) {
-// 	suggestionsList.innerHTML = "";
-// 	if (filteredPokemon.length === 0) {
-// 		suggestionsList.style.display = "none";
-// 	} else {
-// 		filteredPokemon.forEach((pokemon) => {
-// 			let li = document.createElement("li");
-// 			li.textContent = pokemon.name;
-// 			li.onclick = function () {
-// 				document.getElementById("searchBar").value = pokemon.name;
-// 				searchPokemon();
-// 				suggestionsList.style.display = "none";
-// 			};
-// 			suggestionsList.appendChild(li);
-// 		});
-// 		suggestionsList.style.display = "block";
-// 	}
-// }
-
-// function displayFilteredPokemon(filteredPokemon, pokemonContainer) {
-// 	pokemonContainer.innerHTML = "";
-// 	if (filteredPokemon.length === 0) {
-// 		pokemonContainer.innerHTML = `<p>No Pokémon found.</p>`;
-// 	} else {
-// 		filteredPokemon.forEach((pokemon, i) => {
-// 			let pokemonId = `Kanto${i + 1}`;
-// 			pokemonContainer.innerHTML += pokemonContainerHTML(pokemon, pokemonId, i);
-// 		});
-// 	}
-// }
-
-// function clearSuggestions(suggestionsList) {
-// 	suggestionsList.innerHTML = "";
-// 	suggestionsList.style.display = "none";
-// }
-
 function searchPokemon() {
 	let input = document.getElementById("searchBar").value.toLowerCase();
 	let pokemonContainer = document.getElementById("pokemonContainer");
 	let suggestionsList = document.getElementById("suggestions");
+	let clearButton = document.getElementById("clearButton");
+	toggleClearButtonVisibility(input, clearButton);
 	if (input.length < 3) {
-		displayPokedex(currentRegion);
-		toggleLoadMoreButton(currentRegion);
-		clearSuggestions(suggestionsList);
+		handleInput(suggestionsList);
 		return;
 	}
+	filterAndDisplayPokemon(input, suggestionsList, pokemonContainer);
+}
+
+function toggleClearButtonVisibility(input, clearButton) {
+	if (clearButton) {
+		clearButton.style.display = input.length > 0 ? "block" : "none";
+	}
+}
+
+function handleInput(suggestionsList) {
+	displayPokedex(currentRegion);
+	toggleLoadMoreButton(currentRegion);
+	clearSuggestions(suggestionsList);
+	addSearchBarListener();
+}
+
+function addSearchBarListener() {
+	let searchBar = document.getElementById("searchBar");
+	searchBar.addEventListener("input", searchPokemon);
+}
+
+function filterAndDisplayPokemon(input, suggestionsList, pokemonContainer) {
 	let filteredPokemon = filterPokemonAcrossRegions(input);
 	displaySuggestions(filteredPokemon, suggestionsList);
 	displayFilteredPokemon(filteredPokemon, pokemonContainer);
@@ -397,10 +360,30 @@ function displaySuggestions(filteredPokemon, suggestionsList) {
 	}
 }
 
+function displaySuggestions(filteredPokemon, suggestionsList) {
+	suggestionsList.innerHTML = "";
+	if (filteredPokemon.length === 0) {
+		suggestionsList.style.display = "none";
+	} else {
+		filteredPokemon.forEach((pokemon) => {
+			let li = document.createElement("li");
+			li.textContent = pokemon.name;
+			li.onclick = function () {
+				document.getElementById("searchBar").value = pokemon.name;
+				searchPokemon();
+				suggestionsList.style.display = "none";
+				toggleRegionButton(`${pokemon.region.toLowerCase()}Button`);
+			};
+			suggestionsList.appendChild(li);
+		});
+		suggestionsList.style.display = "block";
+	}
+}
+
 function displayFilteredPokemon(filteredPokemon, pokemonContainer) {
 	pokemonContainer.innerHTML = "";
 	if (filteredPokemon.length === 0) {
-		pokemonContainer.innerHTML = `<p>No Pokémon found.</p>`;
+		pokemonContainer.innerHTML = `<p>No Pokémon found. :(</p>`;
 	} else {
 		filteredPokemon.forEach((pokemon, i) => {
 			let pokemonId = `${pokemon.region}${i + 1}`;
@@ -414,8 +397,15 @@ function clearSuggestions(suggestionsList) {
 	suggestionsList.style.display = "none";
 }
 
-let currentPokemonIndex = 0;
-let currentRegion = "Kanto";
+function clearSearch() {
+	let searchBar = document.getElementById("searchBar");
+	searchBar.value = "";
+	searchPokemon();
+	document.getElementById("clearButton").style.display = "none";
+}
+
+// let currentPokemonIndex = 0;
+// let currentRegion = "Kanto";
 
 function openOverlay(index, region) {
 	currentPokemonIndex = index;

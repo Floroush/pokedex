@@ -126,13 +126,6 @@
 	justify-content: center;
 	background: rgba(0, 0, 0, 0.8);
 	z-index: 1000;
-	// new //
-	opacity: 0;
-	transition: opacity 1.5s ease-in-out;
-}
-
-.overlay.active {
-	opacity: 1;
 }
 
 .gap {
@@ -149,13 +142,6 @@
 	border-radius: 10px;
 	width: 400px;
 	text-align: center;
-	// new //
-	opacity: 0;
-	transition: opacity 2.5s ease-in-out;
-}
-
-.pokemon-details.active {
-	opacity: 1;
 }
 
 .pokemon-img-overlay {
