@@ -2,12 +2,14 @@ function pokemonContainerHTML(pokemon, pokemonId, i) {
 	const primaryType = pokemon.typing[0];
 	const secondaryType = pokemon.typing[1] || "no-second-type";
 	const sprite = pokemon.sprite;
+	const text = `class="pokemon-container__text"`;
+	const categories = `class="pokemon-info__categories"`;
 	const typeIcon = (type) =>
 		`<img src="./assets/icons/${type}.svg" alt="${type} type">`;
 	return /*html*/ `
 	<div id="${pokemonId}" class="pokemon-container ${primaryType}-light">
 		<section class="pokemon-container__header ${primaryType}-light">
-			<div class="pokemon-number">${pokemon.number}</div>
+			<div class="pokemon-number pokemon-container__text">${pokemon.number}</div>
 			<div class="pokemon-box">
 				<div class="pokemon-img card ${primaryType}-super-light ${primaryType}-super-light-shadow">
 					<img class="pokemon-img-card" src="${sprite}">
@@ -22,20 +24,20 @@ function pokemonContainerHTML(pokemon, pokemonId, i) {
 			</div>
 		</section>
 		<section class="pokemon-info">
-			<div class="pokemon-info__flex-box"><div>Typing:</div><div class="types"><div>${primaryType}</div><div class="${
+			<div class="pokemon-info__flex-box"><div ${categories}>Typing:</div><div class="types"><div ${text}>${primaryType}</div><div ${text} class="${
 		secondaryType === "no-second-type" ? "no-second-type" : ""
 	}">${
 		secondaryType !== "no-second-type" ? secondaryType : ""
 	}</div></div></div>
-			<div class="pokemon-info__flex-box"><div>Height:</div><div>${
-				pokemon.height
-			}</div></div>
-			<div class="pokemon-info__flex-box"><div>Weight:</div><div>${
-				pokemon.weight
-			}</div></div>
-			<div class="pokemon-info__flex-box"><div>Ability:</div><div>${
-				pokemon.ability
-			}</div></div>
+			<div class="pokemon-info__flex-box"><div ${categories}>Height:</div><div ${text}>${
+		pokemon.height
+	}</div></div>
+			<div class="pokemon-info__flex-box"><div ${categories}>Weight:</div><div ${text}>${
+		pokemon.weight
+	}</div></div>
+			<div class="pokemon-info__flex-box"><div ${categories}>Ability:</div><div ${text}>${
+		pokemon.ability
+	}</div></div>
 		</section>
 	</div>`;
 }
@@ -47,6 +49,7 @@ function loadMoreButtonHTML(region) {
 function overlayHTML(pokemon) {
 	const primaryType = pokemon.typing[0];
 	const secondaryType = pokemon.typing[1] || "no-second-type";
+	const text = `class="overlay__text"`;
 	const typeIcon = (type) =>
 		`<img src="./assets/icons/${type}.svg" alt="${type} type">`;
 	return /*html*/ `
@@ -69,38 +72,38 @@ function overlayHTML(pokemon) {
 		<div class="pokemon-info">
 			<div class="overlay-bottom__section">
 				<div class="pokemon-info__flex-box gap">
-					<div class="stat">HP</div>
-					<div>${pokemon.hp}</div>
+					<div class="stat overlay__text">HP</div>
+					<div ${text}>${pokemon.hp}</div>
 				</div>
 				<div class="pokemon-info__flex-box gap">
-					<div class="stat">Atk</div>
-					<div>${pokemon.attack}</div>
+					<div class="stat overlay__text">Atk</div>
+					<div ${text}>${pokemon.attack}</div>
 				</div>
 				<div class="pokemon-info__flex-box gap">
-					<div class="stat">Def</div>
-					<div>${pokemon.defense}</div>
+					<div class="stat overlay__text">Def</div>
+					<div ${text}>${pokemon.defense}</div>
 				</div>
 			</div>
 			<div class="overlay-bottom__section">
 				<div class="pokemon-info__flex-box gap">
-					<div class="stat">Speed</div>
-					<div>${pokemon.speed}</div>
+					<div class="stat overlay__text">Speed</div>
+					<div ${text}>${pokemon.speed}</div>
 				</div>
 				<div class="pokemon-info__flex-box gap">
-					<div class="stat">Sp.Atk</div>
-					<div>${pokemon.special_attack}</div>
+					<div class="stat overlay__text">Sp.Atk</div>
+					<div ${text}>${pokemon.special_attack}</div>
 				</div>
 				<div class="pokemon-info__flex-box gap">
-					<div class="stat">Sp.Def</div>
-					<div>${pokemon.special_defense}</div>
+					<div class="stat overlay__text">Sp.Def</div>
+					<div ${text}>${pokemon.special_defense}</div>
 				</div>
 			</div>
 			<hr class="hr">
 			<div class="overlay-bottom__base-stats">
 				<div class="pokemon-info__flex-box gap">
-					<div class="base-stats"><b>Base Stats</b></div><div><b>${calculateBaseStatsTotal(
-						pokemon
-					)}</b></div>
+					<div class="base-stats"><b class="overlay__text">Base Stats</b></div><div><b ${text}>${calculateBaseStatsTotal(
+		pokemon
+	)}</b></div>
 				</div>
 			</div>
 		</div>

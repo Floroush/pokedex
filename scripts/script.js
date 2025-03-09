@@ -5,21 +5,16 @@ async function initPokedex(region) {
 	if (isRegionDataLoaded(region)) {
 		displayPokedex(region);
 		toggleLoadMoreButton(region);
-		hideLoadingScreen(loadingScreen);
-		return;
+		return hideLoadingScreen(loadingScreen);
 	}
 	let regionData = loadRegionData(region);
-	if (!regionData) {
-		hideLoadingScreen(loadingScreen);
-		return;
-	}
-	let { startId, endId } = regionData;
-	await loadPokemonDataForRegion(region, startId, endId);
-	displayPokedex(region);
+	if (!regionData) return hideLoadingScreen(loadingScreen);
 	toggleRegionButton(region.toLowerCase() + "Button");
+	await loadPokemonDataForRegion(region, regionData.startId, regionData.endId);
+	saveRegionDataToLocalStorage(region);
+	displayPokedex(region);
 	toggleLoadMoreButton(region);
 	hideLoadingScreen(loadingScreen);
-	saveRegionDataToLocalStorage(region);
 }
 
 function showLoadingScreen(loadingScreen) {
@@ -299,7 +294,7 @@ function searchPokemon() {
 	let clearButton = document.getElementById("clearButton");
 	toggleClearButtonVisibility(input, clearButton);
 	if (input.length < 3) {
-		handleInput(suggestionsList);
+		handleInput(currentRegion, suggestionsList);
 		return;
 	}
 	filterAndDisplayPokemon(input, suggestionsList, pokemonContainer);
@@ -311,10 +306,15 @@ function toggleClearButtonVisibility(input, clearButton) {
 	}
 }
 
-function handleInput(suggestionsList) {
+function deactivateRegionButtons() {
+	let regionButtons = document.querySelectorAll(".pokedex-button.active");
+	regionButtons.forEach((button) => button.classList.remove("active"));
+}
+
+function handleInput(currentRegion, suggestionsList) {
+	deactivateRegionButtons();
 	displayPokedex(currentRegion);
 	toggleLoadMoreButton(currentRegion);
-	clearSuggestions(suggestionsList);
 	addSearchBarListener();
 }
 
@@ -324,8 +324,8 @@ function addSearchBarListener() {
 }
 
 function filterAndDisplayPokemon(input, suggestionsList, pokemonContainer) {
+	deactivateRegionButtons();
 	let filteredPokemon = filterPokemonAcrossRegions(input);
-	displaySuggestions(filteredPokemon, suggestionsList);
 	displayFilteredPokemon(filteredPokemon, pokemonContainer);
 	toggleLoadMoreButton(currentRegion);
 }
@@ -341,45 +341,6 @@ function filterPokemonAcrossRegions(input) {
 	return filteredPokemon;
 }
 
-function displaySuggestions(filteredPokemon, suggestionsList) {
-	suggestionsList.innerHTML = "";
-	if (filteredPokemon.length === 0) {
-		suggestionsList.style.display = "none";
-	} else {
-		filteredPokemon.forEach((pokemon) => {
-			let li = document.createElement("li");
-			li.textContent = pokemon.name;
-			li.onclick = function () {
-				document.getElementById("searchBar").value = pokemon.name;
-				searchPokemon();
-				suggestionsList.style.display = "none";
-			};
-			suggestionsList.appendChild(li);
-		});
-		suggestionsList.style.display = "block";
-	}
-}
-
-function displaySuggestions(filteredPokemon, suggestionsList) {
-	suggestionsList.innerHTML = "";
-	if (filteredPokemon.length === 0) {
-		suggestionsList.style.display = "none";
-	} else {
-		filteredPokemon.forEach((pokemon) => {
-			let li = document.createElement("li");
-			li.textContent = pokemon.name;
-			li.onclick = function () {
-				document.getElementById("searchBar").value = pokemon.name;
-				searchPokemon();
-				suggestionsList.style.display = "none";
-				toggleRegionButton(`${pokemon.region.toLowerCase()}Button`);
-			};
-			suggestionsList.appendChild(li);
-		});
-		suggestionsList.style.display = "block";
-	}
-}
-
 function displayFilteredPokemon(filteredPokemon, pokemonContainer) {
 	pokemonContainer.innerHTML = "";
 	if (filteredPokemon.length === 0) {
@@ -387,9 +348,28 @@ function displayFilteredPokemon(filteredPokemon, pokemonContainer) {
 	} else {
 		filteredPokemon.forEach((pokemon, i) => {
 			let pokemonId = `${pokemon.region}${i + 1}`;
-			pokemonContainer.innerHTML += pokemonContainerHTML(pokemon, pokemonId, i);
+			pokemonContainer.innerHTML += `
+				<div class="pokemon-card" onclick="openOverlay(${i}, '${pokemon.region}')">
+					${pokemonContainerHTML(pokemon, pokemonId, i)}
+				</div>
+			`;
 		});
 	}
+}
+
+function addPokemonToContainer(
+	pokemonContainer,
+	pokemon,
+	pokemonId,
+	index,
+	region
+) {
+	const pokemonCardHTML = pokemonContainerHTML(pokemon, pokemonId, index);
+	pokemonContainer.innerHTML += `
+        <div class="pokemon-card" onclick="openOverlay(${index}, '${region}')">
+            ${pokemonCardHTML}
+        </div>
+    `;
 }
 
 function clearSuggestions(suggestionsList) {
@@ -404,8 +384,8 @@ function clearSearch() {
 	document.getElementById("clearButton").style.display = "none";
 }
 
-// let currentPokemonIndex = 0;
-// let currentRegion = "Kanto";
+let currentPokemonIndex = 0;
+let currentRegion = "Kanto";
 
 function openOverlay(index, region) {
 	currentPokemonIndex = index;

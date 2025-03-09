@@ -85,12 +85,6 @@
 	color: white;
 }
 
-.pokemon-card {
-	opacity: 0;
-	transform: translateY(10px);
-	animation: fadeIn 0.5s ease-out forwards;
-}
-
 @keyframes fadeIn {
 	from {
 		opacity: 0;
@@ -172,7 +166,7 @@
 	margin: 0 8px 0;
 }
 
-@media (min-width: 740px) {
+@media (min-width: 768px) {
 	.header {
 		display: flex;
 		align-items: center;
@@ -231,14 +225,9 @@
 	.search-bar:focus {
 		border: 2px solid var(--black);
 	}
+
 	.pokedex-button {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		border: 2px dotted var(--black);
-		border-radius: 8px;
-		padding: 10px;
-		transition: all 0.5s;
+		font-size: 12px;
 	}
 
 	.pokedex-button:hover,

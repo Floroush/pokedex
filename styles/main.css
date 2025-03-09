@@ -4,14 +4,32 @@ body {
 	min-height: 100dvh;
 }
 
+.main {
+	display: flex;
+	flex-direction: row;
+}
+
 .pokedex-container {
 	display: flex;
 	align-content: flex-start;
 	flex-flow: row wrap;
-	gap: 24px;
+	gap: 18px;
 	justify-content: center;
 	min-height: 100dvh;
-	padding: 24px;
+	padding: 10px;
+	background: var(--red-light);
+}
+
+.pokemon-card {
+	opacity: 0;
+	transform: translateY(10px);
+	animation: fadeIn 0.5s ease-out forwards;
+}
+
+.load-more-button-container {
+	display: flex;
+	justify-content: center;
+	padding: 10px;
 	background: var(--red-light);
 }
 
@@ -19,13 +37,13 @@ body {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	flex-basis: 100%;
 	text-align: center;
 	border: 2px dotted var(--black);
 	border-radius: 8px;
 	padding: 10px;
 	background: var(--white);
 	transition: all 0.5s;
+	font-size: 10px;
 }
 
 .load-more-button:hover {
@@ -66,4 +84,23 @@ body {
 	padding: 20px;
 	overflow-y: auto;
 	background: var(--red-light);
+}
+
+@media (min-width: 768px) {
+	.pokedex-container {
+		display: flex;
+		align-content: flex-start;
+		flex-flow: row wrap;
+		gap: 24px;
+		justify-content: center;
+		min-height: 100dvh;
+		padding: 16px;
+		background: var(--red-light);
+	}
+	.load-more-button-container {
+		padding: 16px;
+	}
+	.load-more-button {
+		font-size: 12px;
+	}
 }
