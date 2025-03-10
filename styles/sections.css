@@ -97,6 +97,7 @@
 }
 
 .button-container {
+	unset: all;
 	display: flex;
 	flex-wrap: wrap;
 	gap: 6px;
