@@ -137,7 +137,6 @@ function getRegionForPokemon(id) {
 	for (let [region, [start, end]] of regions) {
 		if (id >= start && id <= end) return region;
 	}
-	return null;
 }
 
 function pushPokemon(
@@ -207,12 +206,8 @@ function addPokemonToContainer(
 	index,
 	region
 ) {
-	const pokemonCardHTML = pokemonContainerHTML(pokemon, pokemonId, index);
-	pokemonContainer.innerHTML += `
-        <div class="pokemon-card" onclick="openOverlay(${index}, '${region}')">
-            ${pokemonCardHTML}
-        </div>
-    `;
+	const pokemonCard = pokemonContainerHTML(pokemon, pokemonId, index);
+	pokemonContainer.innerHTML += pokemonCardHTML(pokemonCard, index, region);
 }
 
 function toggleLoadMoreButton(region) {
@@ -360,21 +355,6 @@ function displayFilteredPokemon(filteredPokemon, pokemonContainer) {
             </div>
         `;
 	});
-}
-
-function addPokemonToContainer(
-	pokemonContainer,
-	pokemon,
-	pokemonId,
-	index,
-	region
-) {
-	const pokemonCardHTML = pokemonContainerHTML(pokemon, pokemonId, index);
-	pokemonContainer.innerHTML += `
-        <div class="pokemon-card" onclick="openOverlay(${index}, '${region}')">
-            ${pokemonCardHTML}
-        </div>
-    `;
 }
 
 function clearSuggestions(suggestionsList) {

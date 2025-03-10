@@ -46,6 +46,13 @@ function loadMoreButtonHTML(region) {
 	return /*html*/ `<button id="loadMoreButton" class="load-more-button" style="display: none;" onclick="loadMore('${region}')">Load More Pokémon</button>`;
 }
 
+function pokemonCardHTML(pokemonCardHTML, index, region) {
+	return `<div class="pokemon-card" onclick="openOverlay(${index}, '${region}')">
+            ${pokemonCardHTML}
+        </div>
+    `;
+}
+
 function overlayHTML(pokemon) {
 	const primaryType = pokemon.typing[0];
 	const secondaryType = pokemon.typing[1] || "no-second-type";
