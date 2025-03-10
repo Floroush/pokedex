@@ -6,6 +6,11 @@ function pokemonContainerHTML(pokemon, pokemonId, i) {
 	const categories = `class="pokemon-info__categories"`;
 	const typeIcon = (type) =>
 		`<img src="./assets/icons/${type}.svg" alt="${type} type">`;
+	const renderInfo = (key, value, extraClass = "") => `
+		<div class="pokemon-info__flex-box">
+			<div ${categories}>${key}:</div>
+			<div ${text} class="${extraClass}">${value}</div>
+		</div>`;
 	return /*html*/ `
 	<div id="${pokemonId}" class="pokemon-container ${primaryType}-light">
 		<section class="pokemon-container__header ${primaryType}-light">
@@ -24,20 +29,16 @@ function pokemonContainerHTML(pokemon, pokemonId, i) {
 			</div>
 		</section>
 		<section class="pokemon-info">
-			<div class="pokemon-info__flex-box"><div ${categories}>Typing:</div><div class="types"><div ${text}>${primaryType}</div><div ${text} class="${
-		secondaryType === "no-second-type" ? "no-second-type" : ""
-	}">${
-		secondaryType !== "no-second-type" ? secondaryType : ""
-	}</div></div></div>
-			<div class="pokemon-info__flex-box"><div ${categories}>Height:</div><div ${text}>${
-		pokemon.height
-	}</div></div>
-			<div class="pokemon-info__flex-box"><div ${categories}>Weight:</div><div ${text}>${
-		pokemon.weight
-	}</div></div>
-			<div class="pokemon-info__flex-box"><div ${categories}>Ability:</div><div ${text}>${
-		pokemon.ability
-	}</div></div>
+			${renderInfo(
+				"Typing",
+				`${primaryType} ${
+					secondaryType !== "no-second-type" ? secondaryType : ""
+				}`,
+				secondaryType === "no-second-type" ? "no-second-type" : ""
+			)}
+			${renderInfo("Height", pokemon.height)}
+			${renderInfo("Weight", pokemon.weight)}
+			${renderInfo("Ability", pokemon.ability)}
 		</section>
 	</div>`;
 }
@@ -59,63 +60,49 @@ function overlayHTML(pokemon) {
 	const text = `class="overlay__text"`;
 	const typeIcon = (type) =>
 		`<img src="./assets/icons/${type}.svg" alt="${type} type">`;
+	const renderStat = (key, value) => `<div class="pokemon-info__flex-box gap">
+		<div class="stat overlay__text">${key}</div>
+		<div ${text}>${value}</div>
+	</div>`;
 	return /*html*/ `
 	<div id="pokemonDetails" class="pokemon-details ${primaryType}-light" onclick="event.stopPropagation()">
-            <button class="close-button" onclick="closeOverlay(event)">X</button>
-			<section class="overlay-top">
-		<div class="pokemon-box">
-			<div class="pokemon-img ${primaryType}-super-light">
-				<img class="pokemon-img-overlay" src="${pokemon.sprite}" alt="${pokemon.name}">
-			</div>
-			<div class="pokemon-name">${pokemon.name}</div>
-			<div class="pokemon-types">
+		<button class="close-button" onclick="closeOverlay(event)">X</button>
+		<section class="overlay-top">
+			<div class="pokemon-box">
+				<div class="pokemon-img ${primaryType}-super-light">
+					<img class="pokemon-img-overlay" src="${pokemon.sprite}" alt="${pokemon.name}">
+				</div>
+				<div class="pokemon-name">${pokemon.name}</div>
+				<div class="pokemon-types">
 					<div class="type-icon-big ${primaryType}">${typeIcon(primaryType)}</div>
 					<div class="type-icon-big ${secondaryType}">${
 		secondaryType !== "no-second-type" ? typeIcon(secondaryType) : ""
 	}</div>
-		</div>
-	</section>
-	<section class="overlay-bottom">
-		<div class="pokemon-info">
-			<div class="overlay-bottom__section">
-				<div class="pokemon-info__flex-box gap">
-					<div class="stat overlay__text">HP</div>
-					<div ${text}>${pokemon.hp}</div>
-				</div>
-				<div class="pokemon-info__flex-box gap">
-					<div class="stat overlay__text">Atk</div>
-					<div ${text}>${pokemon.attack}</div>
-				</div>
-				<div class="pokemon-info__flex-box gap">
-					<div class="stat overlay__text">Def</div>
-					<div ${text}>${pokemon.defense}</div>
 				</div>
 			</div>
-			<div class="overlay-bottom__section">
-				<div class="pokemon-info__flex-box gap">
-					<div class="stat overlay__text">Speed</div>
-					<div ${text}>${pokemon.speed}</div>
+		</section>
+		<section class="overlay-bottom">
+			<div class="pokemon-info">
+				<div class="overlay-bottom__section">
+					${renderStat("HP", pokemon.hp)}
+					${renderStat("Atk", pokemon.attack)}
+					${renderStat("Def", pokemon.defense)}
 				</div>
-				<div class="pokemon-info__flex-box gap">
-					<div class="stat overlay__text">Sp.Atk</div>
-					<div ${text}>${pokemon.special_attack}</div>
+				<div class="overlay-bottom__section">
+					${renderStat("Speed", pokemon.speed)}
+					${renderStat("Sp.Atk", pokemon.special_attack)}
+					${renderStat("Sp.Def", pokemon.special_defense)}
 				</div>
-				<div class="pokemon-info__flex-box gap">
-					<div class="stat overlay__text">Sp.Def</div>
-					<div ${text}>${pokemon.special_defense}</div>
+				<hr class="hr">
+				<div class="overlay-bottom__base-stats">
+					<div class="pokemon-info__flex-box gap">
+						<div class="base-stats"><b class="overlay__text">Base Stats</b></div>
+						<div><b ${text}>${calculateBaseStatsTotal(pokemon)}</b></div>
+					</div>
 				</div>
 			</div>
-			<hr class="hr">
-			<div class="overlay-bottom__base-stats">
-				<div class="pokemon-info__flex-box gap">
-					<div class="base-stats"><b class="overlay__text">Base Stats</b></div><div><b ${text}>${calculateBaseStatsTotal(
-		pokemon
-	)}</b></div>
-				</div>
-			</div>
-		</div>
-	</section>
-            <button class="nav-button left" onclick="navigatePokemon(-1)">◀</button>
-            <button class="nav-button right" onclick="navigatePokemon(1)">▶</button>
-        </div>`;
+		</section>
+		<button class="nav-button left" onclick="navigatePokemon(-1)">◀</button>
+		<button class="nav-button right" onclick="navigatePokemon(1)">▶</button>
+	</div>`;
 }
