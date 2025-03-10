@@ -345,16 +345,21 @@ function displayFilteredPokemon(filteredPokemon, pokemonContainer) {
 	pokemonContainer.innerHTML = "";
 	if (filteredPokemon.length === 0) {
 		pokemonContainer.innerHTML = `<p>No Pokémon found. :(</p>`;
-	} else {
-		filteredPokemon.forEach((pokemon, i) => {
-			let pokemonId = `${pokemon.region}${i + 1}`;
-			pokemonContainer.innerHTML += `
-				<div class="pokemon-card" onclick="openOverlay(${i}, '${pokemon.region}')">
-					${pokemonContainerHTML(pokemon, pokemonId, i)}
-				</div>
-			`;
-		});
+		return;
 	}
+	let region = Object.keys(completePokedex).find((regionOfPokemon) =>
+		completePokedex[regionOfPokemon].find((pokemon) =>
+			filteredPokemon.includes(pokemon)
+		)
+	);
+	filteredPokemon.forEach((pokemon, i) => {
+		let pokemonId = `${region}${i + 1}`;
+		pokemonContainer.innerHTML += `
+            <div class="pokemon-card" onclick="openOverlay(${i}, '${region}')">
+                ${pokemonContainerHTML(pokemon, pokemonId, i)}
+            </div>
+        `;
+	});
 }
 
 function addPokemonToContainer(
