@@ -86,6 +86,26 @@ body {
 	background: var(--red-light);
 }
 
+.display-block {
+	display: block;
+}
+
+.display-none {
+	display: none;
+}
+
+.display-flex {
+	display: flex;
+}
+
+.overflow-hidden {
+	overflow: hidden;
+}
+
+.overflow-auto {
+	overflow: auto;
+}
+
 @media (min-width: 768px) {
 	.pokedex-container {
 		display: flex;

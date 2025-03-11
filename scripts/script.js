@@ -338,35 +338,41 @@ function filterPokemonAcrossRegions(input) {
 
 function displayFilteredPokemon(filteredPokemon, pokemonContainer) {
 	pokemonContainer.innerHTML = "";
-	if (filteredPokemon.length === 0) {
+	if (!filteredPokemon.length) {
 		pokemonContainer.innerHTML = `<p>No Pokémon found. :(</p>`;
 		return;
 	}
-	let region = Object.keys(completePokedex).find((regionOfPokemon) =>
-		completePokedex[regionOfPokemon].find((pokemon) =>
-			filteredPokemon.includes(pokemon)
-		)
+	let region = Object.keys(completePokedex).find((region) =>
+		completePokedex[region].some((pokemon) => filteredPokemon.includes(pokemon))
 	);
-	filteredPokemon.forEach((pokemon, i) => {
-		let pokemonId = `${region}${i + 1}`;
-		pokemonContainer.innerHTML += `
-            <div class="pokemon-card" onclick="openOverlay(${i}, '${region}')">
+	populatePokemonContainer(filteredPokemon, pokemonContainer, region);
+}
+
+function populatePokemonContainer(filteredPokemon, container, region) {
+	for (let i = 0; i < filteredPokemon.length; i++) {
+		let pokemon = filteredPokemon[i];
+		let pokemonNumber = completePokedex[region].findIndex(
+			(p) => p.number === pokemon.number
+		);
+		let pokemonId = `${region}${pokemonNumber + 1}`;
+		container.innerHTML += `
+            <div class="pokemon-card" onclick="openOverlay(${pokemonNumber}, '${region}')">
                 ${pokemonContainerHTML(pokemon, pokemonId, i)}
             </div>
         `;
-	});
+	}
 }
 
 function clearSuggestions(suggestionsList) {
 	suggestionsList.innerHTML = "";
-	suggestionsList.style.display = "none";
+	suggestionsList.classList.add("display-none");
 }
 
 function clearSearch() {
 	let searchBar = document.getElementById("searchBar");
 	searchBar.value = "";
 	searchPokemon();
-	document.getElementById("clearButton").style.display = "none";
+	document.getElementById("clearButton").classList.add("display-none");
 }
 
 let currentPokemonIndex = 0;
