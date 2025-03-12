@@ -2,7 +2,6 @@
 	position: fixed;
 	top: 0;
 	left: 0;
-	display: none;
 	width: 100dvw;
 	height: 100dvh;
 	align-items: center;
@@ -170,5 +169,42 @@
 	}
 	.overlay__text {
 		font-size: 12px;
+	}
+}
+
+@media (min-width: 1044px) {
+	.pokemon-details {
+		width: 600px;
+	}
+	.type-icon-big {
+		height: 40px;
+		width: 40px;
+	}
+	.stat {
+		border: 2px solid var(--red-light);
+		padding: 4px;
+		margin: 4px;
+	}
+	.hr {
+		margin: 16px;
+	}
+	.overlay-bottom__base-stats {
+		display: flex;
+		justify-content: center;
+	}
+	.base-stats {
+		border: 2px solid var(--black);
+		padding: 16px;
+		padding: 4px;
+		margin: 2px;
+	}
+	.overlay__text {
+		font-size: 20px;
+	}
+	.nav-button.left {
+		left: -40px;
+	}
+	.nav-button.right {
+		right: -40px;
 	}
 }

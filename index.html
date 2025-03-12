@@ -17,7 +17,7 @@
     <title>Pokédex</title>
 </head>
 
-<body onload="includeHTML(),initPokedex('Kanto')">
+<body id="body" class="overflow-auto" onload="includeHTML(),initPokedex('Kanto')">
 
     <header class="header">
 
@@ -57,7 +57,7 @@
         </div>
     </div>
 
-    <div id="overlay" class="overlay" onclick="closeOverlay(event)">
+    <div id="overlay" class="overlay display-none" onclick="closeOverlay(event)">
         <div id="overlayContent"></div>
     </div>
 

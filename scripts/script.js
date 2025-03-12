@@ -18,12 +18,14 @@ async function initPokedex(region) {
 }
 
 function showLoadingScreen(loadingScreen) {
-	loadingScreen.style.display = "flex";
+	loadingScreen.classList.remove("display-none");
+	loadingScreen.classList.add("display-flex");
 }
 
 function hideLoadingScreen(loadingScreen) {
 	setTimeout(() => {
-		loadingScreen.style.display = "none";
+		loadingScreen.classList.remove("display-flex");
+		loadingScreen.classList.add("display-none");
 	}, 500);
 }
 
@@ -236,9 +238,15 @@ function updateLoadMoreButton(region) {
 	let input = document.getElementById("searchBar").value;
 	let pokemonCount = completePokedex[region].length;
 	if (input.length >= 3 || pokemonCount >= 151) {
-		loadMoreButton.style.display = "none";
+		loadMoreButton.classList.add("display-none");
 	} else {
-		loadMoreButton.style.display = pokemonCount >= 30 ? "block" : "none";
+		if (pokemonCount >= 30) {
+			loadMoreButton.classList.add("display-flex");
+			loadMoreButton.classList.remove("display-none");
+		} else {
+			loadMoreButton.classList.add("display-none");
+			loadMoreButton.classList.remove("display-flex");
+		}
 	}
 }
 
@@ -297,7 +305,13 @@ function searchPokemon() {
 
 function toggleClearButtonVisibility(input, clearButton) {
 	if (clearButton) {
-		clearButton.style.display = input.length > 0 ? "block" : "none";
+		if (input.length > 0) {
+			clearButton.classList.add("display-block");
+			clearButton.classList.remove("display-none");
+		} else {
+			clearButton.classList.add("display-none");
+			clearButton.classList.remove("display-block");
+		}
 	}
 }
 
@@ -382,13 +396,17 @@ function openOverlay(index, region) {
 	currentPokemonIndex = index;
 	currentRegion = region;
 	updateOverlay();
-	document.getElementById("overlay").style.display = "flex";
-	document.body.style.overflow = "hidden";
+	document.getElementById("overlay").classList.remove("display-none");
+	document.getElementById("overlay").classList.add("display-flex");
+	document.getElementById("body").classList.remove("overflow-auto");
+	document.getElementById("body").classList.add("overflow-hidden");
 }
 
 function closeOverlay(event) {
-	document.getElementById("overlay").style.display = "none";
-	document.body.style.overflow = "auto";
+	document.getElementById("overlay").classList.remove("display-flex");
+	document.getElementById("overlay").classList.add("display-none");
+	document.getElementById("body").classList.remove("overflow-hidden");
+	document.getElementById("body").classList.add("overflow-auto");
 }
 
 function navigatePokemon(direction) {

@@ -142,3 +142,21 @@
 		font-size: 12px;
 	}
 }
+
+@media (min-width: 1044px) {
+	.pokemon-container {
+		width: 400px;
+	}
+	.pokemon-container__header {
+		padding: 16px;
+	}
+	.pokemon-name {
+		font-size: 20px;
+	}
+	.pokemon-container__text {
+		font-size: 20px;
+	}
+	.pokemon-info__categories {
+		font-size: 20px;
+	}
+}

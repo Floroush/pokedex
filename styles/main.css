@@ -124,3 +124,14 @@ body {
 		font-size: 12px;
 	}
 }
+
+@media (min-width: 1044px) {
+	*/ .load-more-button-container {
+		padding: 16px;
+	}
+	.load-more-button {
+		padding: 40px;
+		border-radius: 40px;
+		font-size: 40px;
+	}
+}

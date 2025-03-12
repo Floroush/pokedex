@@ -70,7 +70,7 @@ function pokemonContainerFooterHTML(
 }
 
 function loadMoreButtonHTML(region) {
-	return /*html*/ `<button id="loadMoreButton" class="load-more-button" style="display: none;" onclick="loadMore('${region}')">Load More Pokémon</button>`;
+	return /*html*/ `<button id="loadMoreButton" class="load-more-button" onclick="loadMore('${region}')">Load More Pokémon</button>`;
 }
 
 function pokemonCardHTML(pokemonCardHTML, index, region) {
