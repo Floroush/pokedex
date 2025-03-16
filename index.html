@@ -20,37 +20,47 @@
 <body id="body" class="overflow-auto" onload="includeHTML(),initPokedex('Kanto')">
 
     <header class="header">
+        <div class="header limit-1440">
+            <a class="logo-container" href="./index.html">
+                <img class="logo-container__pokeball-icon" src="./assets/icons/pokeball.png">
+                <div class="logo-container__title">Pokédex</div>
+            </a>
 
-        <a class="logo-container" href="./index.html">
-            <img class="logo-container__pokeball-icon" src="./assets/icons/pokeball.png">
-            <div class="logo-container__title">Pokédex</div>
-        </a>
+            <div class="search-container">
+                <input id="searchBar" class="search-bar" type="text" placeholder="Pokémon suchen..."
+                    onkeyup="searchPokemon()">
+                <button id="clearButton" class="clear-button" onclick="clearSearch()">×</button>
+                <ul id="suggestions" class="suggestions-list"></ul>
+            </div>
 
-        <div class="search-container">
-            <input id="searchBar" class="search-bar" type="text" placeholder="Pokémon suchen..."
-                onkeyup="searchPokemon()">
-            <button id="clearButton" class="clear-button" onclick="clearSearch()">×</button>
-            <ul id="suggestions" class="suggestions-list"></ul>
+            <ul class="button-container">
+                <li><button id="kantoButton" class="pokedex-button" onclick="initPokedex('Kanto')">KANTO</button></li>
+                <li><button id="johtoButton" class="pokedex-button" onclick="initPokedex('Johto')">JOHTO</button></li>
+                <li><button id="hoennButton" class="pokedex-button" onclick="initPokedex('Hoenn')">HOENN</button></li>
+                <li><button id="sinnohButton" class="pokedex-button" onclick="initPokedex('Sinnoh')">SINNOH</button>
+                </li>
+                <li><button id="unovaButton" class="pokedex-button" onclick="initPokedex('Unova')">UNOVA</button></li>
+                <li><button id="kalosButton" class="pokedex-button" onclick="initPokedex('Kalos')">KALOS</button></li>
+                <li><button id="alolaButton" class="pokedex-button" onclick="initPokedex('Alola')">ALOLA</button></li>
+                <li><button id="galarButton" class="pokedex-button" onclick="initPokedex('Galar')">GALAR</button></li>
+                <li><button id="paldeaButton" class="pokedex-button" onclick="initPokedex('Paldea')">PALDEA</button>
+                </li>
+            </ul>
         </div>
-
-        <ul class="button-container">
-            <li><button id="kantoButton" class="pokedex-button" onclick="initPokedex('Kanto')">KANTO</button></li>
-            <li><button id="johtoButton" class="pokedex-button" onclick="initPokedex('Johto')">JOHTO</button></li>
-            <li><button id="hoennButton" class="pokedex-button" onclick="initPokedex('Hoenn')">HOENN</button></li>
-            <li><button id="sinnohButton" class="pokedex-button" onclick="initPokedex('Sinnoh')">SINNOH</button></li>
-            <li><button id="unovaButton" class="pokedex-button" onclick="initPokedex('Unova')">UNOVA</button></li>
-            <li><button id="kalosButton" class="pokedex-button" onclick="initPokedex('Kalos')">KALOS</button></li>
-            <li><button id="alolaButton" class="pokedex-button" onclick="initPokedex('Alola')">ALOLA</button></li>
-            <li><button id="galarButton" class="pokedex-button" onclick="initPokedex('Galar')">GALAR</button></li>
-            <li><button id="paldeaButton" class="pokedex-button" onclick="initPokedex('Paldea')">PALDEA</button></li>
-        </ul>
-
     </header>
 
     <main id="main">
-        <div id="pokemonContainer" class="pokedex-container"></div>
-        <div id="loadMoreButtonContainer" class="load-more-button-container"></div>
+        <div class="light-red">
+            <div class="limit-1440">
+
+                <div id="pokemonContainer" class="pokedex-container"></div>
+                <div id="loadMoreButtonContainer" class="load-more-button-container"></div>
+
+            </div>
+
+        </div>
     </main>
+
     <div id="loadingScreen" class="loading-screen">
         <div class="loading-content">
             <p>Loading Pokémon...</p>

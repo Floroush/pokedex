@@ -4,9 +4,20 @@ body {
 	min-height: 100dvh;
 }
 
+.limit-1440 {
+	max-width: 1440px;
+	width: 100%;
+	margin: 0 auto;
+}
+
+.light-red {
+	background: var(--red-light);
+}
+
 .main {
 	display: flex;
 	flex-direction: row;
+	background: var(--blue);
 }
 
 .pokedex-container {
@@ -122,16 +133,5 @@ body {
 	}
 	.load-more-button {
 		font-size: 12px;
-	}
-}
-
-@media (min-width: 1920px) {
-	*/ .load-more-button-container {
-		padding: 16px;
-	}
-	.load-more-button {
-		padding: 40px;
-		border-radius: 40px;
-		font-size: 40px;
 	}
 }
